@@ -2,10 +2,10 @@
 title: FINOS API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - curl
-  - ruby
-  - go
-  - javascript
+  - shell: curl
+  - ruby: Ruby
+  - go: Go
+  - javascript: Node
 
 toc_footers:
 
@@ -29,6 +29,17 @@ We have language bindings in Ruby, Go, and JavaScript! You can view code example
 require 'finos'
 
 api = Finos::APIClient.authorize!('meowmeowmeow')
+```
+
+
+```go
+package main
+
+import (
+    "log"
+
+    "github.com/finos/go-sdk"
+)
 ```
 
 ```shell
