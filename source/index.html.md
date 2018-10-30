@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: FINOS API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
