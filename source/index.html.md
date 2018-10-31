@@ -9,9 +9,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
 
-includes:
-  - errors
-
 ---
 
 # Introduction
@@ -66,9 +63,9 @@ FINOS expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+# Errors
 
-## Get All Kittens
+## Handling errors
 
 ```ruby
 require 'finos'
@@ -125,107 +122,22 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Kitten
+# Metadata
 
-```ruby
-require 'FINOS'
+# Pagination
 
-api = FINOS::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+# Users
 
-```python
-import FINOS
+# Accounts
 
-api = FINOS.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+# Bank Accounts
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+# Desposits
 
-```javascript
-const FINOS = require('FINOS');
+# Withdrawals
 
-let api = FINOS.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
+# Trading
 
-> The above command returns JSON structured like this:
+# Portfolio
 
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'FINOS'
-
-api = FINOS::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import FINOS
-
-api = FINOS.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const FINOS = require('FINOS');
-
-let api = FINOS.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+# Statements
