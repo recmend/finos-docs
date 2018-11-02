@@ -135,6 +135,7 @@ Code | Title | Description
 ```
 
 Type | Description
+---- | -----------
 api_connection | Failure to connect to Finos's API.
 api_error | API errors cover any other type of problem (e.g., a temporary problem with our servers), and are extremely uncommon.
 authentication_error | Failure to properly authenticate yourself in the request.
