@@ -209,7 +209,7 @@ Parameter | Description
 
 # Bank Accounts
 
-# Desposits
+# Deposits
 
 # Withdrawals
 
