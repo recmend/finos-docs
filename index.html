@@ -402,14 +402,41 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Type | Description
-api_connection | Failure to connect to Finos&#39;s API.
-api_error | API errors cover any other type of problem (e.g., a temporary problem with our servers), and are extremely uncommon.
-authentication_error | Failure to properly authenticate yourself in the request.
-invalid_request | Invalid request errors arise when your request has invalid parameters.
-rate_limit_exceeded | Too many requests hit the API too quickly.
-validation_error | Unable to validate POST/PUT
-not_found | Resource was not found.</p>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>api_connection</td>
+<td>Failure to connect to Finos&#39;s API.</td>
+</tr>
+<tr>
+<td>api_error</td>
+<td>API errors cover any other type of problem (e.g., a temporary problem with our servers), and are extremely uncommon.</td>
+</tr>
+<tr>
+<td>authentication_error</td>
+<td>Failure to properly authenticate yourself in the request.</td>
+</tr>
+<tr>
+<td>invalid_request</td>
+<td>Invalid request errors arise when your request has invalid parameters.</td>
+</tr>
+<tr>
+<td>rate_limit_exceeded</td>
+<td>Too many requests hit the API too quickly.</td>
+</tr>
+<tr>
+<td>validation_error</td>
+<td>Unable to validate POST/PUT</td>
+</tr>
+<tr>
+<td>not_found</td>
+<td>Resource was not found.</td>
+</tr>
+</tbody></table>
 <h1 id='rate-limiting'>Rate limiting</h1>
 <blockquote>
 <p>Example rate limit error response.</p>
