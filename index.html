@@ -201,7 +201,7 @@
       <script src="javascripts/all_nosearch.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;go&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;go&quot;,&quot;javascript&quot;,&quot;python&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,9 +212,10 @@
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">curl</a>
-              <a href="#" data-language-name="ruby">Ruby</a>
               <a href="#" data-language-name="go">Go</a>
               <a href="#" data-language-name="javascript">Node</a>
+              <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
         </div>
       <ul id="toc" class="toc-list-h1">
           <li>
@@ -227,12 +228,23 @@
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#handling-errors" class="toc-h2 toc-link" data-title="Handling errors">Handling errors</a>
+                    <a href="#http-status-codes" class="toc-h2 toc-link" data-title="HTTP Status codes">HTTP Status codes</a>
+                  </li>
+                  <li>
+                    <a href="#error-types" class="toc-h2 toc-link" data-title="Error types">Error types</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#metadata" class="toc-h1 toc-link" data-title="Metadata">Metadata</a>
+            <a href="#rate-limiting" class="toc-h1 toc-link" data-title="Rate limiting">Rate limiting</a>
+          </li>
+          <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#securing-webhooks" class="toc-h2 toc-link" data-title="Securing webhooks">Securing webhooks</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
@@ -266,107 +278,222 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the FINOS API! You can use our API to access FINOS API endpoints.</p>
+        <h1 id='introduction'>Introduction</h1><pre class="highlight shell tab-shell"><code>https://api.finos.com
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+  </span><span class="s">"github.com/finos/go"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+</span></code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">finos</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">finos</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># use rubygems</span>
+<span class="n">gem</span> <span class="n">install</span> <span class="n">finos</span>
 
-<p>We have language bindings in Ruby, Go, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<span class="c1"># or use bundler</span>
+<span class="n">gem</span> <span class="s1">'finos'</span>
+</code></pre>
+<p>Welcome to Finos! This API reference provides information on available endpoints and how to interact with it.</p>
+
+<p>The Finos API is organized around <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. All requests should be over SSL. All request and response bodies, including errors are encoded in JSON.</p>
+
+<p>We also have some specific language bindings to make integration easier. You can switch the programming language of the examples with the tabs in the top right.</p>
+
+<p>Currently we support the following official client bindings:</p>
+
+<ul>
+<li><strong>Go</strong></li>
+<li><strong>Node</strong></li>
+<li><strong>Python</strong></li>
+<li><strong>Ruby</strong></li>
+</ul>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Example Request</p>
 </blockquote>
 <pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'finos'</span>
+<span class="no">Finos</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"your_api_key"</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Finos</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight go tab-go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+<span class="no">Finos</span><span class="o">::</span><span class="no">Account</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s2">"account_id"</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">finos</span>
+<span class="n">finos</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">"your_api_key"</span>
 
-</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
-    </span><span class="s">"log"</span><span class="x">
-
-    </span><span class="s">"github.com/finos/go-sdk"</span><span class="x">
+<span class="n">finos</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">"account_id"</span><span class="p">)</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="n">finos</span><span class="x"> </span><span class="s">"github.com/finos/go"</span><span class="x">
 </span><span class="p">)</span><span class="x">
-</span></code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">finos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'finos'</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">finos</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+</span><span class="n">finos</span><span class="o">.</span><span class="n">Key</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"your_api_key"</span><span class="x">
+</span><span class="n">finos</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">"account_id"</span><span class="p">)</span><span class="x">
+</span></code></pre><pre class="highlight shell tab-shell"><code><span class="gp">$ </span>curl https://api.finos.com/accounts <span class="se">\</span>
+  -H <span class="s2">"Authorization: your_api_key"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">finos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'finos'</span><span class="p">)</span>
+<span class="p">(</span><span class="s2">"your_api_key"</span><span class="p">);</span>
+
+<span class="nx">finos</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="s1">'account_id'</span><span class="p">);</span>
 </code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>Authentication is done via the API key which you can find in your account settings. Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
 
-<p>Finos uses API keys to allow access to the API. You can register a new FINOS API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Authentication to the API is performed via <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a>. Provide your API key as the basic auth username value. You do not need to provide a password.</p>
 
-<p>FINOS expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Alternatively you can also pass your API key as a bearer token in an Authorization header.</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p><code>-H &quot;Authorization: Bearer *your_api_key*&quot;</code></p>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='errors'>Errors</h1><h2 id='handling-errors'>Handling errors</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'finos'</span>
+<p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
+<h1 id='errors'>Errors</h1>
+<p>Our API returns standard HTTP success or error status codes. For errors, we will also include extra information about what went wrong encoded in the response as JSON. The various HTTP status codes we might return are listed below.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">FINOS</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">FINOS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'FINOS'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">FINOS</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p>In general: Codes in the 2xx range indicate success. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.). Codes in the 5xx range indicate an error with Finos&#39;s servers (these are rare).</p>
+<h2 id='http-status-codes'>HTTP Status codes</h2>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Code</th>
+<th>Title</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>200</td>
+<td>OK</td>
+<td>Everything worked as expected.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>400</td>
+<td>Bad Request</td>
+<td>The request was unacceptable, often due to missing a required parameter.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>No valid API key provided.</td>
+</tr>
+<tr>
+<td>402</td>
+<td>Request Failed</td>
+<td>The parameters were valid but the request failed.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>The requested resource doesn&#39;t exist.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict</td>
+<td>The request conflicts with another request (perhaps due to using the same idempotent key).</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Request</td>
+<td>Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.</td>
+</tr>
+<tr>
+<td>500,502,503,504</td>
+<td>Server Errors</td>
+<td>Something went wrong on Finos&#39;s end. (These are rare.)</td>
 </tr>
 </tbody></table>
+<h2 id='error-types'>Error types</h2>
+<blockquote>
+<p>Example error response.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid_request"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name is required"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Type | Description
+api_connection | Failure to connect to Finos&#39;s API.
+api_error | API errors cover any other type of problem (e.g., a temporary problem with our servers), and are extremely uncommon.
+authentication_error | Failure to properly authenticate yourself in the request.
+invalid_request | Invalid request errors arise when your request has invalid parameters.
+rate_limit_exceeded | Too many requests hit the API too quickly.
+validation_error | Unable to validate POST/PUT
+not_found | Resource was not found.</p>
+<h1 id='rate-limiting'>Rate limiting</h1>
+<blockquote>
+<p>Example rate limit error response.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rate_limit_exceeded"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Too many requests"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The Finos API is rate limited to prevent abuse that would degrade our ability to maintain consistent API performance for all users. By default, each API key or app is rate limited at 10,000 requests per hour. If your requests are being rate limited, HTTP response code 429 will be returned with an rate_limit_exceeded error.</p>
+<h1 id='webhooks'>Webhooks</h1>
+<p>You can receive notifications via a webhook whenever there are new events associated with an object.</p>
+<h2 id='securing-webhooks'>Securing webhooks</h2>
+<p>To validate a webhook came from Finos we suggest verifying the webhook payloads with the X-Request-Signature header (which we pass with every webhook). If you’re using one of our client bindings to parse webhooks, say the Ruby library, we’ll do this for you.</p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h1 id='metadata'>Metadata</h1><h1 id='pagination'>Pagination</h1><h1 id='users'>Users</h1><h1 id='accounts'>Accounts</h1><h1 id='bank-accounts'>Bank Accounts</h1><h1 id='desposits'>Desposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>X-Request-Signature</td>
+<td>A SHA1 HMAC hexdigest computed with your API key and the raw body of the request. Make sure to strip the prefix (sk_, pk_) from the start of the key before generating the HMAC.</td>
+</tr>
+</tbody></table>
+<h1 id='pagination'>Pagination</h1><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ending_before"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"starting_after"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous_page"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/accounts?&amp;limit=25&amp;starting_after=5d5aed5f-b7c0-5585-a3dd-a7ed9ef0e414"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>All <code>GET</code> endpoints which return an object list support cursor based pagination with pagination information inside a <code>pagination</code> object. This means that to get all objects, you need to paginate through the results by always using the <code>id</code> of the last resource in the list as a <code>starting_after</code> parameter for the next call. To make it easier, the API will construct the next call into <code>next_page</code> together with all the currently used pagination parameters. You know that you have paginated all the results when the response’s <code>next_page</code> is empty. While using cursor based pagination might seem weird compared to many APIs it protects from the situation when the resulting object list changes during pagination (new resource gets added or removed).</p>
+
+<p>Default limit is set to 25 but values up to 100 are permitted.</p>
+
+<p>The result list is in descending order by default (newest item first) but it can be reversed by supplying order=asc instead.</p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>limit</code>  optional</td>
+<td>Number of results per call. Accepted values: 0 - 100. Default 25</td>
+</tr>
+<tr>
+<td><code>order</code>  optional</td>
+<td>Result order. Accepted values: <code>desc</code> (default), <code>asc</code></td>
+</tr>
+<tr>
+<td><code>starting_after</code> optional</td>
+<td>A cursor for use in pagination. <code>starting_after</code> is an resource ID that defines your place in the list.</td>
+</tr>
+<tr>
+<td><code>ending_before</code> optional</td>
+<td>A cursor for use in pagination. <code>ending_before</code> is an resource ID that defines your place in the list.</td>
+</tr>
+</tbody></table>
+<h1 id='users'>Users</h1><h1 id='accounts'>Accounts</h1><h1 id='bank-accounts'>Bank Accounts</h1><h1 id='desposits'>Desposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">curl</a>
-                <a href="#" data-language-name="ruby">Ruby</a>
                 <a href="#" data-language-name="go">Go</a>
                 <a href="#" data-language-name="javascript">Node</a>
+                <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
           </div>
       </div>
     </div>
