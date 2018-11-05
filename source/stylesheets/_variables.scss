@@ -23,19 +23,19 @@ under the License.
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #f8f8f8 !default;
+$nav-bg: #F5F4F9 !default;
 $examples-bg: #2E3336 !default;
 $code-bg: #1E2224 !default;
 $code-annotation-bg: #2E3336 !default;
-$nav-subitem-bg: #f8f8f8 !default;
+$nav-subitem-bg: #EBEAEF !default;
 $nav-active-bg: #19A5E4 !default;
-$nav-active-parent-bg: #f8f8f8 !default; // parent links of the current section
+$nav-active-parent-bg: #EBEAEF !default; // parent links of the current section
 $lang-select-border: #000 !default;
 $lang-select-bg: #1E2224 !default;
-$lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
-$lang-select-pressed-bg: #111 !default; // color of language tab bg when mouse is pressed
-$main-bg: #F3F7F9 !default;
-$aside-notice-bg: #8fbcd4 !default;
+$lang-select-active-bg: #19A5E4 !default; // feel free to change this to blue or something
+$lang-select-pressed-bg: #19A5E4 !default; // color of language tab bg when mouse is pressed
+$main-bg: #fff !default;
+$aside-notice-bg: #E3F9FF !default;
 $aside-warning-bg: #c97a7e !default;
 $aside-success-bg: #6ac174 !default;
 $search-notice-bg: #c97a7e !default;
@@ -76,7 +76,6 @@ $phone-width: $tablet-width - $nav-width !default; // min width before reverting
 
 %header-font {
   @extend %default-font;
-  font-weight: bold;
 }
 
 %code-font {

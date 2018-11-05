@@ -162,7 +162,9 @@ not_found | Resource was not found.
 The Finos API is rate limited to prevent abuse that would degrade our ability to maintain consistent API performance for all users. By default, each API key or app is rate limited at 10,000 requests per hour. If your requests are being rate limited, HTTP response code 429 will be returned with an rate_limit_exceeded error.
 
 # Webhooks
-You can receive notifications via a webhook whenever there are new events associated with an object.
+A webhook is a messaging mechanism that enables you to receive notification of events as they occur. The Finos platform sends such event notifications to a webhook endpoint, an endpoint hosted in your environment that you have configured to receive and process event notifications.
+
+You configure the webhook object with the URL of your webhook endpoint and with a set credentials for accessing that endpoint. You also configure it to send notifications for specific types of events (you can configure it to send all types or any subset of types). If you would like to set up multiple webhook endpoints and route different types of event notifications to each, you can do so by creating multiple webhook objects and configuring each to send a specific type of event notification to a specific endpoint.
 
 ## Securing webhooks
 To validate a webhook came from Finos we suggest verifying the webhook payloads with the X-Request-Signature header (which we pass with every webhook). If you’re using one of our client bindings to parse webhooks, say the Ruby library, we’ll do this for you.
@@ -170,6 +172,14 @@ To validate a webhook came from Finos we suggest verifying the webhook payloads 
 Header | Description
 ------ | -----------
 X-Request-Signature | A SHA1 HMAC hexdigest computed with your API key and the raw body of the request. Make sure to strip the prefix (sk_, pk_) from the start of the key before generating the HMAC.
+
+## Create webhook
+
+## Retrieve webhook
+
+## Update webhook
+
+## List webhooks
 
 # Pagination
 
@@ -205,6 +215,20 @@ Parameter | Description
 `ending_before` optional | A cursor for use in pagination. `ending_before` is an resource ID that defines your place in the list.
 
 # Users
+
+The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.
+
+This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.
+
+## Create user
+
+## Retrieve user
+
+## Update user
+
+## List users
+
+## Search users
 
 # Accounts
 
