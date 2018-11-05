@@ -61,6 +61,7 @@ html, body {
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
+  border-right: 1px solid rgba(221,221,221,.5);
 
   // language selector for mobile devices
   .lang-selector {
