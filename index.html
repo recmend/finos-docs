@@ -262,20 +262,6 @@
             <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
           </li>
           <li>
-            <a href="#kyc-verification" class="toc-h1 toc-link" data-title="KYC Verification">KYC Verification</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#perform-kyc" class="toc-h2 toc-link" data-title="Perform KYC">Perform KYC</a>
-                  </li>
-                  <li>
-                    <a href="#retrieve-kyc-result" class="toc-h2 toc-link" data-title="Retrieve KYC result">Retrieve KYC result</a>
-                  </li>
-                  <li>
-                    <a href="#kyc-documents" class="toc-h2 toc-link" data-title="KYC Documents">KYC Documents</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
               <ul class="toc-list-h2">
                   <li>
@@ -290,13 +276,38 @@
                   <li>
                     <a href="#list-users" class="toc-h2 toc-link" data-title="List users">List users</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#kyc-verification" class="toc-h1 toc-link" data-title="KYC Verification">KYC Verification</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#search-users" class="toc-h2 toc-link" data-title="Search users">Search users</a>
+                    <a href="#perform-kyc" class="toc-h2 toc-link" data-title="Perform KYC">Perform KYC</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-kyc-result" class="toc-h2 toc-link" data-title="Retrieve KYC result">Retrieve KYC result</a>
+                  </li>
+                  <li>
+                    <a href="#kyc-documents" class="toc-h2 toc-link" data-title="KYC Documents">KYC Documents</a>
                   </li>
               </ul>
           </li>
           <li>
             <a href="#accounts" class="toc-h1 toc-link" data-title="Accounts">Accounts</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-account" class="toc-h2 toc-link" data-title="Create account">Create account</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-account" class="toc-h2 toc-link" data-title="Retrieve account">Retrieve account</a>
+                  </li>
+                  <li>
+                    <a href="#update-account" class="toc-h2 toc-link" data-title="Update account">Update account</a>
+                  </li>
+                  <li>
+                    <a href="#list-accounts" class="toc-h2 toc-link" data-title="List accounts">List accounts</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#bank-accounts" class="toc-h1 toc-link" data-title="Bank Accounts">Bank Accounts</a>
@@ -557,21 +568,308 @@
 <td>A cursor for use in pagination. <code>ending_before</code> is an resource ID that defines your place in the list.</td>
 </tr>
 </tbody></table>
+<h1 id='users'>Users</h1>
+<p>The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.</p>
+
+<p>This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.</p>
+<h2 id='create-user'>Create user</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/users <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "phone_number": "18042562188",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email_address": "johndoe@finos.com",
+    "birth_date": "1985-01-23",
+    "ssn_number": "123456789",
+    "address_line_1": "123 Test St",
+    "address_city": "Richmond",
+    "address_state": "VA",
+    "address_postal_code": "23220",
+    "address_country_code": "US",
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action_required"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/users</code></p>
+
+<p>This endpoint enables you to create a user. It will automatically perform the Know Your Customer (KYC) checks if the complete address and ssn_number is passed in the user create request.</p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>phone_number</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>email_address</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>birth_date</code></td>
+<td>string  &quot;YYYY-MM-DD&quot;</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>ssn_number</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_line_1</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_city</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_state</code></td>
+<td>string <em>2 letter code</em></td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_postal_code</code></td>
+<td>string</td>
+<td>required,</td>
+</tr>
+<tr>
+<td><code>address_country_code</code></td>
+<td>string <em>2 letter code</em></td>
+<td>required</td>
+</tr>
+</tbody></table>
+
+<p><strong>RESPONSE EXPLAINED</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>user_id</code></td>
+<td>Unique user id on the finos platform</td>
+</tr>
+<tr>
+<td><code>kyc_token</code></td>
+<td>To perform follow up KYC checks if neccessary</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Status of the user account as per KYC initial verification.</td>
+</tr>
+</tbody></table>
+
+<p>Unless the user status becomes <code>approved</code>, the user cannot perform any subsequent steps like funding their account, make trades etc.</p>
+
+<aside class="information">
+For <code>action_required</code> status use KYC Patch request for automated verification. For <code>documentation_required</code> status use KYC document endpoint.
+</aside>
+<h2 id='retrieve-user'>Retrieve user</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9502562188"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Test St"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unit 4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redmond"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VO"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"34512"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/users/{used_id}</code></p>
+
+<p>This endpoint enables you to retrieve a specific user.</p>
+<h2 id='update-user'>Update user</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/users/<span class="o">{</span>user_id<span class="o">}</span> /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "phone_number": "6742562188"
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6742562188"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Test St"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unit 4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redmond"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VO"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"34512"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/users/{used_id}</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>phone_number</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>email_address</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>birth_date</code></td>
+<td>string  &quot;YYYY-MM-DD&quot;</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>ssn_number</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>address_line_1</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>address_city</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>address_state</code></td>
+<td>string <em>2 letter code</em></td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>address_postal_code</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>address_country_code</code></td>
+<td>string <em>2 letter code</em></td>
+<td>optional</td>
+</tr>
+</tbody></table>
+<h2 id='list-users'>List users</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users?limit<span class="o">=</span>3 <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ending_before"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"starting_after"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous_uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.finos.com/v1/users?limit=3&amp;starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/users</code></p>
 <h1 id='kyc-verification'>KYC Verification</h1>
 <p>Finos requires account holders to pass an identity verification process before accounts are active. This identity verification process is known as KYC (know your customer).</p>
 <h2 id='perform-kyc'>Perform KYC</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/kyc /
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/kyc <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -u sk_yourapikey <span class="se">\</span>
   -d <span class="s1">$'{
     "phone_number": "18042562188",
     "first_name": "John",
     "last_name": "Doe",
     "email_address": "johndoe@finos.com",
-    "date_of_birth": "1985-01-23",
+    "birth_date": "1985-01-23",
     "ssn_number": "123456789",
     "address_line_1": "123 Test St",
     "address_city": "Richmond",
@@ -683,7 +981,7 @@
     }'</span>
 </code></pre>
 <p>Use this endpoint to verify the identity of an account holder. If we are able to resolve the person and there is no need for further information. If more information is needed, the response will indicate what is needed and what the format for that information should be.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST https://api.finos.com/v1/kyc</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
@@ -716,7 +1014,7 @@
 <td>required</td>
 </tr>
 <tr>
-<td><code>date_of_birth</code></td>
+<td><code>birth_date</code></td>
 <td>string  &quot;YYYY-MM-DD&quot;</td>
 <td>required</td>
 </tr>
@@ -771,7 +1069,7 @@
     </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Approved"</span><span class="p">,</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET https://api.finos.com/v1/kyc/{token}</code></p>
 <h2 id='kyc-documents'>KYC Documents</h2><pre class="highlight shell tab-shell"><code>curl -X PUT GET https://api.finos.com/v1/kyc/<span class="o">{</span>token<span class="o">}</span>/documents <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
@@ -840,11 +1138,237 @@ Uploaded documents are not reviewed or approved in UAT. In Production, documents
 <td>base64 encoded file content</td>
 </tr>
 </tbody></table>
-<h1 id='users'>Users</h1>
-<p>The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.</p>
+<h1 id='accounts'>Accounts</h1>
+<p>The accounts resource represents the brokerage accounts with which users conduct financial transactions.</p>
+<h2 id='create-account'>Create account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "ownership": "individual",
+    "account_type": "cash",
+    "martial_status": "single",
+    "country_of_citizenship": "USA",
+    "employment_status": "Employed / Self-Employed",
+    "employment_position": "Software Engineer",
+    "employer_name": "Finos Inc",
+    "annual_income": "$100,000 - $199,999",
+    "investment_objective": "growth",
+    "investment_experience": "limited",
+    "net_liquid_worth": "$25,000 - $99,999",
+    "net_total_worth": "$100,000 - $199,999",
+    "is_director": false,
+    "risk_tolerance": "moderate"
+  }'</span>
+</code></pre>
+<blockquote>
+<p>For Joint accounts, change ownership to &quot;joint&quot;</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "ownership": "joint",
+    "account_type": "cash",
+    ...,
+    "joint_member": {
+      "phone_number": "18042562188",
+      "first_name": "Marry",
+      "last_name": "Doe",
+      "email_address": "marryjoe@finos.com",
+      "birth_date": "1985-04-21",
+      "ssn_number": "666456789",
+      "address_line_1": "123 Test St",
+      "address_city": "Richmond",
+      "address_state": "VA",
+      "address_postal_code": "23220",
+      "address_country_code": "US",
+    }
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOBN50250"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"joint"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts</code></p>
 
-<p>This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.</p>
-<h2 id='create-user'>Create user</h2><h2 id='retrieve-user'>Retrieve user</h2><h2 id='update-user'>Update user</h2><h2 id='list-users'>List users</h2><h2 id='search-users'>Search users</h2><h1 id='accounts'>Accounts</h1><h1 id='bank-accounts'>Bank Accounts</h1><h1 id='deposits'>Deposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ownership</code> <em>required</em></td>
+<td>Individual or Joint Account</td>
+</tr>
+<tr>
+<td><code>account_type</code> <em>required</em></td>
+<td>Type of account. Options <code>cash</code> or <code>investment</code></td>
+</tr>
+<tr>
+<td><code>martial_status</code> <em>required</em></td>
+<td>Martial Status. Options <code>single</code>, <code>divorced</code>, <code>married</code>, <code>widowed</code></td>
+</tr>
+<tr>
+<td><code>country_of_citizenship</code> <em>required</em></td>
+<td>Country Citizenship, uses 3 character country code.</td>
+</tr>
+<tr>
+<td><code>employment_status</code> <em>required</em></td>
+<td>Employment Status. Options <code>employed / self-employed</code>, <code>retired</code>, <code>student</code>, <code>not employed</code></td>
+</tr>
+<tr>
+<td><code>employment_position</code> <em>required</em></td>
+<td>Occupation e.g. &quot;Software Engineer&quot;,</td>
+</tr>
+<tr>
+<td><code>employer_name</code> <em>required</em></td>
+<td>Employer&#39;s name</td>
+</tr>
+<tr>
+<td><code>annual_income</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>Annual income. Options <code>$0 - $24,999</code>, <code>$25,000 - $99,999</code>, <code>$100,000 - $199,999</code>, <code>$200,000+</code></td>
+</tr>
+<tr>
+<td><code>investment_objective</code><em>optional for <code>cash</code> accounts</em></td>
+<td>Investment objectives. Options <code>capital preservation</code>, <code>growth</code>, <code>income</code>, <code>speculation</code></td>
+</tr>
+<tr>
+<td><code>investment_experience</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>Investment experience. Options <code>none</code>, <code>limited</code>, <code>good</code>, <code>extensive</code></td>
+</tr>
+<tr>
+<td><code>net_liquid_worth</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>Liquid net worth. Options <code>$0 - $4,999</code>, <code>$5,000 - $99,999</code>, <code>$100,000 - $199,999</code>, <code>$200,000+</code></td>
+</tr>
+<tr>
+<td><code>net_total_worth</code> options for <code>cash</code> accounts</td>
+<td>Total net worth. Options <code>$0 - $24,999</code>, <code>$25,000 - $99,999</code>, <code>$100,000 - $199,999</code>, <code>$200,000+</code></td>
+</tr>
+<tr>
+<td><code>is_director</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>Is the account holder(s) a control person of a publicly traded company? A Director, Officer or 10% stock owner?</td>
+</tr>
+<tr>
+<td><code>director_of</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>If director, please list the company name and its ticker symbol.</td>
+</tr>
+<tr>
+<td><code>risk_tolerance</code> <em>optional for <code>cash</code> accounts</em></td>
+<td>Risk tolerance. Options <code>conservative</code>, <code>moderate</code>, <code>aggressive</code></td>
+</tr>
+</tbody></table>
+
+<aside class="information">
+For <code>joint</code> accounts optionally include the <code>joint_member</code> object in the request body as shown in the sample code.
+</aside>
+<h2 id='retrieve-account'>Retrieve account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOBN50250"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ownership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"joint"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"martial_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"married"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"country_of_citizenship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"employment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Employed / Self-Employed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"employment_position"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Software Engineer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"employer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Finos Inc"</span><span class="w">
+  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"joint_member"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/accounts/{account_id}</code></p>
+
+<p>This endpoint enables you to retrieve a specific account.</p>
+<h2 id='update-account'>Update account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/<span class="o">{</span>account_id<span class="o">}</span> /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "account_type": "investment",
+    "annual_income": "$100,000 - $199,999",
+    "investment_objective": "growth",
+    "investment_experience": "limited",
+    "net_liquid_worth": "$25,000 - $99,999",
+    "net_total_worth": "$100,000 - $199,999",
+    "is_director": false,
+    "risk_tolerance": "moderate"
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOBN50250"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"investment"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-9'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/accounts/{account_id}</code></p>
+
+<p>This endpoint enables you to update an account. For any updates to the user profile information, use the users resource update method. You can change an active account from single to joint by passing required <code>joint_member</code> object in the request. You can also convert a <code>cash</code> account to an <code>investment</code> by passing the required fields for converting it to an investment account or vice versa.</p>
+<h2 id='list-accounts'>List accounts</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/accounts?limit<span class="o">=</span>3 <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ending_before"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"starting_after"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous_uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.finos.com/v1/acccounts?limit=3&amp;starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/accounts</code></p>
+<h1 id='bank-accounts'>Bank Accounts</h1><h1 id='deposits'>Deposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
