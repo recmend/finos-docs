@@ -214,6 +214,204 @@ Parameter | Description
 `starting_after` optional | A cursor for use in pagination. `starting_after` is an resource ID that defines your place in the list.
 `ending_before` optional | A cursor for use in pagination. `ending_before` is an resource ID that defines your place in the list.
 
+# Users
+
+The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.
+
+This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.
+
+## Create user
+
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/users \
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "phone_number": "18042562188",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email_address": "johndoe@finos.com",
+    "birth_date": "1985-01-23",
+    "ssn_number": "123456789",
+    "address_line_1": "123 Test St",
+    "address_city": "Richmond",
+    "address_state": "VA",
+    "address_postal_code": "23220",
+    "address_country_code": "US",
+  }'
+```
+
+> Example Response
+
+```json
+{
+    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "status": "action_required",
+    "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X"
+}
+```
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/users`
+
+This endpoint enables you to create a user. It will automatically perform the Know Your Customer (KYC) checks if the complete address and ssn_number is passed in the user create request.
+
+**ARGUMENTS**
+
+Parameter | Type | Required
+--------- | ---- | -----------
+`phone_number` | string | optional
+`first_name`   | string | required
+`last_name` | string | required
+`email_address` | string | required
+`birth_date` | string  "YYYY-MM-DD"| required
+`ssn_number` | string | required
+`address_line_1` | string | required
+`address_city` | string | required
+`address_state` | string *2 letter code* | required
+`address_postal_code` | string | required,
+`address_country_code` | string *2 letter code* | required
+
+**RESPONSE EXPLAINED**
+
+Parameter | Description
+--------- | -----------
+`user_id` | Unique user id on the finos platform
+`kyc_token` | To perform follow up KYC checks if neccessary
+`status` | Status of the user account as per KYC initial verification.
+
+Unless the user status becomes `approved`, the user cannot perform any subsequent steps like funding their account, make trades etc.
+
+<aside class="information">
+For <code>action_required</code> status use KYC Patch request for automated verification. For <code>documentation_required</code> status use KYC document endpoint.
+</aside>
+
+## Retrieve user
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 /
+  -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "status": "active",
+    "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X",
+    "first_name": "John",
+    "last_name": "Doe",
+    "phone_number": "9502562188",
+    "email_address": "johndoe@example.com",
+    "address_line_1": "123 Test St",
+    "address_line_2": "unit 4",
+    "address_city": "Redmond",
+    "address_state": "VO",
+    "address_postal_code": "34512",
+    "address_country_code": "US"
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/users/{used_id}`
+
+This endpoint enables you to retrieve a specific user.
+
+## Update user
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/users/{user_id} /
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "phone_number": "6742562188"
+  }'
+```
+
+> Example Response
+
+```json
+{
+    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "status": "active",
+    "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X",
+    "first_name": "John",
+    "last_name": "Doe",
+    "phone_number": "6742562188",
+    "email_address": "johndoe@example.com",
+    "address_line_1": "123 Test St",
+    "address_line_2": "unit 4",
+    "address_city": "Redmond",
+    "address_state": "VO",
+    "address_postal_code": "34512",
+    "address_country_code": "US"
+}
+```
+
+### HTTP Request
+
+`PUT https://api.finos.com/v1/users/{used_id}`
+
+**ARGUMENTS**
+
+Parameter | Type | Required
+--------- | ---- | -----------
+`phone_number` | string | optional
+`first_name`   | string | optional
+`last_name` | string | optional
+`email_address` | string | optional
+`birth_date` | string  "YYYY-MM-DD"| optional
+`ssn_number` | string | optional
+`address_line_1` | string | optional
+`address_city` | string | optional
+`address_state` | string *2 letter code* | optional
+`address_postal_code` | string | optional
+`address_country_code` | string *2 letter code* | optional
+
+## List users
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/users?limit=3 \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/users?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "user_id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      ...
+    },
+  ]
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/users`
+
 # KYC Verification
 Finos requires account holders to pass an identity verification process before accounts are active. This identity verification process is known as KYC (know your customer).
 
@@ -222,15 +420,15 @@ Finos requires account holders to pass an identity verification process before a
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/kyc /
+curl -X POST https://api.finos.com/v1/kyc \
+  -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
-  -u sk_yourapikey \
   -d $'{
     "phone_number": "18042562188",
     "first_name": "John",
     "last_name": "Doe",
     "email_address": "johndoe@finos.com",
-    "date_of_birth": "1985-01-23",
+    "birth_date": "1985-01-23",
     "ssn_number": "123456789",
     "address_line_1": "123 Test St",
     "address_city": "Richmond",
@@ -360,7 +558,7 @@ Parameter | Type | Required
 `first_name`   | string | required
 `last_name` | string | required
 `email_address` | string | required
-`date_of_birth` | string  "YYYY-MM-DD"| required
+`birth_date` | string  "YYYY-MM-DD"| required
 `ssn_number` | string | required
 `address_line_1` | string | required
 `address_city` | string | required
@@ -446,26 +644,6 @@ Parameter | Type | Description
 `type` | string	| Type of document requested by the kyc endpoint (ssn card, ‘license’, ‘passport’, or ‘utility’)
 `notes` | string | Document notes
 `data` | string | base64 encoded file content
-
-# Users
-
-The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.
-
-This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.
-
-
-## Create user
-
-
-
-
-## Retrieve user
-
-## Update user
-
-## List users
-
-## Search users
 
 # Accounts
 
