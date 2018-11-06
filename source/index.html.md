@@ -247,7 +247,7 @@ curl -X POST https://api.finos.com/v1/users \
 
 ```json
 {
-    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
     "status": "action_required",
     "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X"
 }
@@ -302,7 +302,7 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 
 
 ```json
 {
-    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
     "status": "active",
     "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X",
     "first_name": "John",
@@ -320,7 +320,7 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/users/{used_id}`
+`GET https://api.finos.com/v1/users/{id}`
 
 This endpoint enables you to retrieve a specific user.
 
@@ -328,7 +328,7 @@ This endpoint enables you to retrieve a specific user.
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/users/{user_id} /
+curl -X PUT https://api.finos.com/v1/users/{id} /
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -340,7 +340,7 @@ curl -X PUT https://api.finos.com/v1/users/{user_id} /
 
 ```json
 {
-    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
     "status": "active",
     "kyc_token": "S-BNTwVDLrlRvHbKVhRa8X",
     "first_name": "John",
@@ -401,7 +401,7 @@ curl -X GET https://api.finos.com/v1/users?limit=3 \
     { ... },
     { ... },
     {
-      "user_id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      "id": "58542935-67b5-56e1-a3f9-42686e07fa40",
       ...
     },
   ]
@@ -707,7 +707,7 @@ curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025
 ```json
 {
     "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
-    "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+    "id": "2d931510-d99f-494a-8c67-87feb05e1594",
     "account_number": "FOBN50250",
     "ownership": "joint",
     "account_type": "cash",
@@ -775,7 +775,7 @@ curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e15
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/accounts/{account_id}`
+`GET https://api.finos.com/v1/accounts/{id}`
 
 This endpoint enables you to retrieve a specific account.
 
@@ -802,8 +802,8 @@ curl -X PUT https://api.finos.com/v1/accounts/{account_id} /
 
 ```json
 {
+    "id": "2d931510-d99f-494a-8c67-87feb05e1594",
     "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
-    "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
     "account_number": "FOBN50250",
     "ownership": "single",
     "account_type": "investment",
@@ -821,7 +821,7 @@ This endpoint enables you to update an account. For any updates to the user prof
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/accounts?limit=3 \
+curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts?limit=3 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -841,18 +841,180 @@ curl -X GET https://api.finos.com/v1/accounts?limit=3 \
     { ... },
     { ... },
     {
-      "account_id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      "id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      ...
+    },
+  ]
+}
+```
+You can see a list of the brokerage accounts belonging to a user.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
+
+# Bank Accounts
+
+The bank account resource is used to connect user's external bank accounts with Finos brokerage accounts. The funds are transferred to and from user's bank accounts and Finos brokerage accounts.
+
+## Create bank account
+
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts \
+ -H "Bearer: sk_yourapikey" \
+ -H "Content-Type: application/json" \
+ -d $'{
+   "bank_account_number": "4327843043",
+   "bank_routing_number": "121042882",
+   "bank_account_nickname": "Joe checking"
+ }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+  "bank_account_number": "4327843043",
+  "bank_routing_number": "121042882",
+  "default": false,
+  "bank_account_nickname": "Joe checking"
+}
+```
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts`
+
+**ARGUMENTS**
+
+Parameter | Description
+--------- | -----------
+`bank_account_number` *required* | The account number for the bank account. This should be a checking account.
+`bank_routing_number` *required* | The routing transit number for the bank account.
+`bank_account_nickname` *required* | Any user friendly name for the bank account
+
+## Retrieve bank account
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/bank_accounts/bad85eb9-0713-4da7-8d36-07a8e4b00eab /
+  -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+  "bank_account_number": "4327843043",
+  "bank_routing_number": "121042882",
+  "default": false,
+  "bank_account_nickname": "Joe checking"
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/bank_accounts/{id}`
+
+This endpoint enables you to retrieve a specific user bank account.
+
+## Update bank account
+
+> Example Request
+
+```shell
+curl -X PUT https://api.finos.com/v1/bank_accounts/{id} /
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "default": true,
+    "bank_account_nickname": "Joe WF Checking"
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+  "default": true,
+  "bank_account_nickname": "Joe checking"
+}
+```
+
+### HTTP Request
+
+`PUT https://api.finos.com/v1/bank_accounts/{id}`
+
+Parameter | Description
+--------- | -----------
+`default` *optional* | Default bank account for credit and debit of funds.
+`bank_account_nickname` *optional* | Any user friendly name for the bank account
+
+## Delete bank account
+
+> Example Request
+
+```shell
+curl -X DELETE https://api.finos.com/v1/bank_accounts/{id} /
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "object": "bank_account",
+  "deleted": true
+}
+```
+
+### HTTP Request
+
+`DELETE https://api.finos.com/v1/bank_accounts/{id}`
+
+## List bank accounts
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3 \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3&starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
       ...
     },
   ]
 }
 ```
 
-### HTTP Request
-
-`GET https://api.finos.com/v1/accounts`
-
-# Bank Accounts
+You can see a list of the bank accounts belonging to a user.
 
 # Deposits
 
