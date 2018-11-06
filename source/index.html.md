@@ -328,7 +328,7 @@ This endpoint enables you to retrieve a specific user.
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users/{user_id} /
+curl -X PUT https://api.finos.com/v1/users/{user_id} /
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -646,6 +646,211 @@ Parameter | Type | Description
 `data` | string | base64 encoded file content
 
 # Accounts
+
+The accounts resource represents the brokerage accounts with which users conduct financial transactions.
+
+
+## Create account
+
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "ownership": "individual",
+    "account_type": "cash",
+    "martial_status": "single",
+    "country_of_citizenship": "USA",
+    "employment_status": "Employed / Self-Employed",
+    "employment_position": "Software Engineer",
+    "employer_name": "Finos Inc",
+    "annual_income": "$100,000 - $199,999",
+    "investment_objective": "growth",
+    "investment_experience": "limited",
+    "net_liquid_worth": "$25,000 - $99,999",
+    "net_total_worth": "$100,000 - $199,999",
+    "is_director": false,
+    "risk_tolerance": "moderate"
+  }'
+```
+
+> For Joint accounts, change ownership to "joint"
+
+```shell
+curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "ownership": "joint",
+    "account_type": "cash",
+    ...,
+    "joint_member": {
+      "phone_number": "18042562188",
+      "first_name": "Marry",
+      "last_name": "Doe",
+      "email_address": "marryjoe@finos.com",
+      "birth_date": "1985-04-21",
+      "ssn_number": "666456789",
+      "address_line_1": "123 Test St",
+      "address_city": "Richmond",
+      "address_state": "VA",
+      "address_postal_code": "23220",
+      "address_country_code": "US",
+    }
+  }'
+```
+
+> Example Response
+
+```json
+{
+    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+    "account_number": "FOBN50250",
+    "ownership": "joint",
+    "account_type": "cash",
+}
+```
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
+
+**ARGUMENTS**
+
+Parameter | Description
+--------- | -----------
+`ownership` *required* |  Individual or Joint Account
+`account_type` *required* | Type of account. Options `cash` or `investment`
+`martial_status` *required* | Martial Status. Options `single`, `divorced`, `married`, `widowed`
+`country_of_citizenship` *required* | Country Citizenship, uses 3 character country code.
+`employment_status` *required* | Employment Status. Options `employed / self-employed`, `retired`, `student`, `not employed`
+`employment_position` *required* | Occupation e.g. "Software Engineer",
+`employer_name` *required* | Employer's name
+`annual_income` *optional for `cash` accounts* | Annual income. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`investment_objective`*optional for `cash` accounts* | Investment objectives. Options `capital preservation`, `growth`, `income`, `speculation`
+`investment_experience` *optional for `cash` accounts* | Investment experience. Options `none`, `limited`, `good`, `extensive`
+`net_liquid_worth` *optional for `cash` accounts* | Liquid net worth. Options `$0 - $4,999`, `$5,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`net_total_worth` options for `cash` accounts | Total net worth. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`is_director` *optional for `cash` accounts* | Is the account holder(s) a control person of a publicly traded company? A Director, Officer or 10% stock owner?
+`director_of` *optional for `cash` accounts* | If director, please list the company name and its ticker symbol.
+`risk_tolerance` *optional for `cash` accounts* | Risk tolerance. Options `conservative`, `moderate`, `aggressive`
+
+<aside class="information">
+For <code>joint</code> accounts optionally include the <code>joint_member</code> object in the request body as shown in the sample code.
+</aside>
+
+## Retrieve account
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 /
+  -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "id": "2d931510-d99f-494a-8c67-87feb05e1594",
+  "account_number": "FOBN50250",
+  "ownership": "joint",
+  "account_type": "cash",
+  "martial_status": "married",
+  "country_of_citizenship": "USA",
+  "employment_status": "Employed / Self-Employed",
+  "employment_position": "Software Engineer",
+  "employer_name": "Finos Inc"
+  "owner": {
+    ...
+  },
+  "joint_member": {
+
+  }
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/accounts/{account_id}`
+
+This endpoint enables you to retrieve a specific account.
+
+## Update account
+> Example Request
+
+```shell
+curl -X PUT https://api.finos.com/v1/accounts/{account_id} /
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "account_type": "investment",
+    "annual_income": "$100,000 - $199,999",
+    "investment_objective": "growth",
+    "investment_experience": "limited",
+    "net_liquid_worth": "$25,000 - $99,999",
+    "net_total_worth": "$100,000 - $199,999",
+    "is_director": false,
+    "risk_tolerance": "moderate"
+  }'
+```
+
+> Example Response
+
+```json
+{
+    "user_id": "f6e54303-10ce-42b5-a4b0-b28c19cf5025",
+    "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+    "account_number": "FOBN50250",
+    "ownership": "single",
+    "account_type": "investment",
+}
+```
+
+### HTTP Request
+
+`PUT https://api.finos.com/v1/accounts/{account_id}`
+
+This endpoint enables you to update an account. For any updates to the user profile information, use the users resource update method. You can change an active account from single to joint by passing required `joint_member` object in the request. You can also convert a `cash` account to an `investment` by passing the required fields for converting it to an investment account or vice versa.
+
+## List accounts
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/accounts?limit=3 \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/acccounts?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "account_id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      ...
+    },
+  ]
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/accounts`
 
 # Bank Accounts
 
