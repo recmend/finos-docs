@@ -262,6 +262,20 @@
             <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
           </li>
           <li>
+            <a href="#kyc-verification" class="toc-h1 toc-link" data-title="KYC Verification">KYC Verification</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#perform-kyc" class="toc-h2 toc-link" data-title="Perform KYC">Perform KYC</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-kyc-result" class="toc-h2 toc-link" data-title="Retrieve KYC result">Retrieve KYC result</a>
+                  </li>
+                  <li>
+                    <a href="#kyc-documents" class="toc-h2 toc-link" data-title="KYC Documents">KYC Documents</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
               <ul class="toc-list-h2">
                   <li>
@@ -541,6 +555,289 @@
 <tr>
 <td><code>ending_before</code> optional</td>
 <td>A cursor for use in pagination. <code>ending_before</code> is an resource ID that defines your place in the list.</td>
+</tr>
+</tbody></table>
+<h1 id='kyc-verification'>KYC Verification</h1>
+<p>Finos requires account holders to pass an identity verification process before accounts are active. This identity verification process is known as KYC (know your customer).</p>
+<h2 id='perform-kyc'>Perform KYC</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/kyc /
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -u sk_yourapikey <span class="se">\</span>
+  -d <span class="s1">$'{
+    "phone_number": "18042562188",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email_address": "johndoe@finos.com",
+    "date_of_birth": "1985-01-23",
+    "ssn_number": "123456789",
+    "address_line_1": "123 Test St",
+    "address_city": "Richmond",
+    "address_state": "VA",
+    "address_postal_code": "23220",
+    "address_country_code": "US",
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.99</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Address Match"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Phone Match"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Approved"</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>If more information is needed, the response is going to look something like this</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-eJ38yUNDqcMxKwwdxbya"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"answers"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Object containing answers to out of wallet question prompts."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"template"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"answer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"answer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"answer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"answer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"question_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"answer_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"optional"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"prompts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"questions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What state was your SSN issued in?"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"answers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Arkansas"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alabama"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"West Virginia"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Virginia"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"None Of The Above"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">&lt;...&gt;</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PATCH https://api.finos.com/v1/kyc/S-eJ38yUNDqcMxKwwdxbya <span class="se">\</span>
+    -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+    -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    -d <span class="s1">$'{"answers":[
+        {"question_id": 1, "answer_id": 1},
+        {"question_id": 2, "answer_id": 5},
+        {"question_id": 3, "answer_id": 2},
+        {"question_id": 4, "answer_id": 1},
+        {"question_id": 5, "answer_id": 5}
+      ],
+      "name_first": "Charles",
+      "name_last": "Hearn"
+    }'</span>
+</code></pre>
+<p>Use this endpoint to verify the identity of an account holder. If we are able to resolve the person and there is no need for further information. If more information is needed, the response will indicate what is needed and what the format for that information should be.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/kyc</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>phone_number</code></td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>first_name</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>last_name</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>email_address</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td>string  &quot;YYYY-MM-DD&quot;</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>ssn_number</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_line_1</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_city</code></td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_state</code></td>
+<td>string <em>2 letter code</em></td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>address_postal_code</code></td>
+<td>string</td>
+<td>required,</td>
+</tr>
+<tr>
+<td><code>address_country_code</code></td>
+<td>string <em>2 letter code</em></td>
+<td>required</td>
+</tr>
+</tbody></table>
+
+<aside class="information">
+<code>token</code> can be used retrieve KYC results. Must be passed back to PATCH <code>/kyc/{token}</code> if necessary.
+</aside>
+<h2 id='retrieve-kyc-result'>Retrieve KYC result</h2>
+<p>Use this endpoint to retrieve a specific KYC result.</p>
+
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.99</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Address Match"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Phone Match"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Approved"</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/kyc/{token}</code></p>
+<h2 id='kyc-documents'>KYC Documents</h2><pre class="highlight shell tab-shell"><code>curl -X PUT GET https://api.finos.com/v1/kyc/<span class="o">{</span>token<span class="o">}</span>/documents <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "name": "john_doe_driver_license",
+    "extension": "pdf",
+    "type": "license",
+    "notes": "Uploaded from email customer sent",
+    "data": &lt;file stream&gt;
+  }'</span>
+</code></pre>
+<blockquote>
+<p>A successful request will return a JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"document_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D-fu1WeoS2ywAROk1srtP9"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john_doe_driver_license"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extension"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pdf"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"uploaded"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Uploaded from email customer sent"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1497305164671</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1497305164671</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When an automated KYC cannot be performed for the customer, it has to go through manual review process and additional documentation is required. Once you have submitted the additional documentation, we will send a webhook notifying the status
+of the KYC review.</p>
+
+<aside class="information">
+Uploaded documents are not reviewed or approved in UAT. In Production, documents are reviewed by Finos's licensed customer service department to verify the user's identity.
+</aside>
+<h3 id='upload-a-document'>Upload a Document</h3>
+<p><code>POST https://api.finos.com/v1/kyc/{token}/documents</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Name of the document to be uploaded</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>Type of document requested by the kyc endpoint (ssn card, ‘license’, ‘passport’, or ‘utility’)</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>string</td>
+<td>Document notes</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>string</td>
+<td>base64 encoded file content</td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1>
