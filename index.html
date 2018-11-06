@@ -311,6 +311,23 @@
           </li>
           <li>
             <a href="#bank-accounts" class="toc-h1 toc-link" data-title="Bank Accounts">Bank Accounts</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-bank-account" class="toc-h2 toc-link" data-title="Create bank account">Create bank account</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-bank-account" class="toc-h2 toc-link" data-title="Retrieve bank account">Retrieve bank account</a>
+                  </li>
+                  <li>
+                    <a href="#update-bank-account" class="toc-h2 toc-link" data-title="Update bank account">Update bank account</a>
+                  </li>
+                  <li>
+                    <a href="#delete-bank-account" class="toc-h2 toc-link" data-title="Delete bank account">Delete bank account</a>
+                  </li>
+                  <li>
+                    <a href="#list-bank-accounts" class="toc-h2 toc-link" data-title="List bank accounts">List bank accounts</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#deposits" class="toc-h1 toc-link" data-title="Deposits">Deposits</a>
@@ -597,7 +614,7 @@
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action_required"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -710,7 +727,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
@@ -725,14 +742,14 @@ For <code>action_required</code> status use KYC Patch request for automated veri
     </span><span class="s2">"address_country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://api.finos.com/v1/users/{used_id}</code></p>
+<p><code>GET https://api.finos.com/v1/users/{id}</code></p>
 
 <p>This endpoint enables you to retrieve a specific user.</p>
 <h2 id='update-user'>Update user</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/users/<span class="o">{</span>user_id<span class="o">}</span> /
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/users/<span class="o">{</span>id<span class="o">}</span> /
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">$'{
@@ -743,7 +760,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"kyc_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S-BNTwVDLrlRvHbKVhRa8X"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
@@ -848,7 +865,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
     </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
       </span><span class="err">...</span><span class="w">
     </span><span class="p">},</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -1194,7 +1211,7 @@ Uploaded documents are not reviewed or approved in UAT. In Production, documents
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOBN50250"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"ownership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"joint"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
@@ -1303,7 +1320,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-8'>HTTP Request</h3>
-<p><code>GET https://api.finos.com/v1/accounts/{account_id}</code></p>
+<p><code>GET https://api.finos.com/v1/accounts/{id}</code></p>
 
 <p>This endpoint enables you to retrieve a specific account.</p>
 <h2 id='update-account'>Update account</h2>
@@ -1328,8 +1345,8 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FOBN50250"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"ownership"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"investment"</span><span class="p">,</span><span class="w">
@@ -1342,7 +1359,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/accounts?limit<span class="o">=</span>3 <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts?limit<span class="o">=</span>3 <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span>
 </code></pre>
 <blockquote>
@@ -1361,14 +1378,174 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
     </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58542935-67b5-56e1-a3f9-42686e07fa40"</span><span class="p">,</span><span class="w">
       </span><span class="err">...</span><span class="w">
     </span><span class="p">},</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-10'>HTTP Request</h3>
-<p><code>GET https://api.finos.com/v1/accounts</code></p>
-<h1 id='bank-accounts'>Bank Accounts</h1><h1 id='deposits'>Deposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
+</span></code></pre>
+<p>You can see a list of the brokerage accounts belonging to a user.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts</code></p>
+<h1 id='bank-accounts'>Bank Accounts</h1>
+<p>The bank account resource is used to connect user&#39;s external bank accounts with Finos brokerage accounts. The funds are transferred to and from user&#39;s bank accounts and Finos brokerage accounts.</p>
+<h2 id='create-bank-account'>Create bank account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "bank_account_number": "4327843043",
+   "bank_routing_number": "121042882",
+   "bank_account_nickname": "Joe checking"
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4327843043"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_routing_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"121042882"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_account_nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe checking"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-11'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>bank_account_number</code> <em>required</em></td>
+<td>The account number for the bank account. This should be a checking account.</td>
+</tr>
+<tr>
+<td><code>bank_routing_number</code> <em>required</em></td>
+<td>The routing transit number for the bank account.</td>
+</tr>
+<tr>
+<td><code>bank_account_nickname</code> <em>required</em></td>
+<td>Any user friendly name for the bank account</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-bank-account'>Retrieve bank account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/bank_accounts/bad85eb9-0713-4da7-8d36-07a8e4b00eab /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_account_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4327843043"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_routing_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"121042882"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_account_nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe checking"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-12'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/bank_accounts/{id}</code></p>
+
+<p>This endpoint enables you to retrieve a specific user bank account.</p>
+<h2 id='update-bank-account'>Update bank account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/bank_accounts/<span class="o">{</span>id<span class="o">}</span> /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">$'{
+    "default": true,
+    "bank_account_nickname": "Joe WF Checking"
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6e54303-10ce-42b5-a4b0-b28c19cf5025"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bank_account_nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe checking"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-13'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/bank_accounts/{id}</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>default</code> <em>optional</em></td>
+<td>Default bank account for credit and debit of funds.</td>
+</tr>
+<tr>
+<td><code>bank_account_nickname</code> <em>optional</em></td>
+<td>Any user friendly name for the bank account</td>
+</tr>
+</tbody></table>
+<h2 id='delete-bank-account'>Delete bank account</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X DELETE https://api.finos.com/v1/bank_accounts/<span class="o">{</span>id<span class="o">}</span> /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank_account"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-14'>HTTP Request</h3>
+<p><code>DELETE https://api.finos.com/v1/bank_accounts/{id}</code></p>
+<h2 id='list-bank-accounts'>List bank accounts</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit<span class="o">=</span>3 <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ending_before"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"starting_after"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous_uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3&amp;starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>You can see a list of the bank accounts belonging to a user.</p>
+<h1 id='deposits'>Deposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
