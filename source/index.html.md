@@ -214,13 +214,250 @@ Parameter | Description
 `starting_after` optional | A cursor for use in pagination. `starting_after` is an resource ID that defines your place in the list.
 `ending_before` optional | A cursor for use in pagination. `ending_before` is an resource ID that defines your place in the list.
 
+# KYC Verification
+Finos requires account holders to pass an identity verification process before accounts are active. This identity verification process is known as KYC (know your customer).
+
+
+## Perform KYC
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/kyc /
+  -H "Content-Type: application/json" \
+  -u sk_yourapikey \
+  -d $'{
+    "phone_number": "18042562188",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email_address": "johndoe@finos.com",
+    "date_of_birth": "1985-01-23",
+    "ssn_number": "123456789",
+    "address_line_1": "123 Test St",
+    "address_city": "Richmond",
+    "address_state": "VA",
+    "address_postal_code": "23220",
+    "address_country_code": "US",
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "status_code": 201,
+  "token": "S-BNTwVDLrlRvHbKVhRa8X",
+  "data": {
+    "result": "success",
+    "score": 0.99,
+    "tags": ["Address Match", "Phone Match"],
+    "outcome": "Approved",
+  }
+}
+```
+
+> If more information is needed, the response is going to look something like this
+
+```json
+{
+  "token": "S-eJ38yUNDqcMxKwwdxbya",
+  "required": [
+    {
+      "key": "answers",
+      "type": "object",
+      "description": "Object containing answers to out of wallet question prompts.",
+      "template": {
+        "answers": [
+          {
+            "question_id": 1,
+            "answer_id": 0
+          },
+          {
+            "question_id": 2,
+            "answer_id": 0
+          },
+          {
+            "question_id": 3,
+            "answer_id": 0
+          },
+          {
+            "question_id": 4,
+            "answer_id": 0
+          },
+          {
+            "question_id": 5,
+            "answer_id": 0
+          }
+        ]
+      }
+    }
+  ],
+  "optional": [],
+  "prompts": {
+    "answers": {
+      "questions": [
+        {
+          "id": 1,
+          "question": "What state was your SSN issued in?",
+          "answers": [
+            {
+              "id": 1,
+              "answer": "Arkansas"
+            },
+            {
+              "id": 2,
+              "answer": "Alabama"
+            },
+            {
+              "id": 3,
+              "answer": "West Virginia"
+            },
+            {
+              "id": 4,
+              "answer": "Virginia"
+            },
+            {
+              "id": 5,
+              "answer": "None Of The Above"
+            }
+          ]
+        },
+        <...>
+      ]
+    }
+  }
+}
+```
+
+>
+
+```shell
+curl -X PATCH https://api.finos.com/v1/kyc/S-eJ38yUNDqcMxKwwdxbya \
+    -H "Bearer: sk_yourapikey" \
+    -H "Content-Type: application/json" \
+    -d $'{"answers":[
+        {"question_id": 1, "answer_id": 1},
+        {"question_id": 2, "answer_id": 5},
+        {"question_id": 3, "answer_id": 2},
+        {"question_id": 4, "answer_id": 1},
+        {"question_id": 5, "answer_id": 5}
+      ],
+      "name_first": "Charles",
+      "name_last": "Hearn"
+    }'
+```
+
+Use this endpoint to verify the identity of an account holder. If we are able to resolve the person and there is no need for further information. If more information is needed, the response will indicate what is needed and what the format for that information should be.
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/kyc`
+
+**ARGUMENTS**
+
+Parameter | Type | Required
+--------- | ---- | -----------
+`phone_number` | string | optional
+`first_name`   | string | required
+`last_name` | string | required
+`email_address` | string | required
+`date_of_birth` | string  "YYYY-MM-DD"| required
+`ssn_number` | string | required
+`address_line_1` | string | required
+`address_city` | string | required
+`address_state` | string *2 letter code* | required
+`address_postal_code` | string | required,
+`address_country_code` | string *2 letter code* | required
+
+<aside class="information">
+<code>token</code> can be used retrieve KYC results. Must be passed back to PATCH <code>/kyc/{token}</code> if necessary.
+</aside>
+
+## Retrieve KYC result
+
+Use this endpoint to retrieve a specific KYC result.
+
+> Example Response
+
+```json
+{
+  "status_code": 200,
+  "token": "S-BNTwVDLrlRvHbKVhRa8X",
+  "data": {
+    "result": "success",
+    "score": 0.99,
+    "tags": ["Address Match", "Phone Match"],
+    "outcome": "Approved",
+  }
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/kyc/{token}`
+
+## KYC Documents
+```shell
+curl -X PUT GET https://api.finos.com/v1/kyc/{token}/documents \
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "name": "john_doe_driver_license",
+    "extension": "pdf",
+    "type": "license",
+    "notes": "Uploaded from email customer sent",
+    "data": <file stream>
+  }'
+```
+
+> A successful request will return a JSON structured like this:
+
+```json
+{
+  "document_token": "D-fu1WeoS2ywAROk1srtP9",
+  "name": "john_doe_driver_license",
+  "extension": "pdf",
+  "uploaded": true,
+  "notes": [
+    {
+      "notes": "Uploaded from email customer sent",
+      "created_at": 1497305164671,
+      "updated_at": 1497305164671
+    }
+  ]
+}
+```
+
+When an automated KYC cannot be performed for the customer, it has to go through manual review process and additional documentation is required. Once you have submitted the additional documentation, we will send a webhook notifying the status
+of the KYC review.
+
+<aside class="information">
+Uploaded documents are not reviewed or approved in UAT. In Production, documents are reviewed by Finos's licensed customer service department to verify the user's identity.
+</aside>
+
+### Upload a Document
+
+`POST https://api.finos.com/v1/kyc/{token}/documents`
+
+**ARGUMENTS**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+`name` | string |	Name of the document to be uploaded
+`type` | string	| Type of document requested by the kyc endpoint (ssn card, ‘license’, ‘passport’, or ‘utility’)
+`notes` | string | Document notes
+`data` | string | base64 encoded file content
+
 # Users
 
 The users resource represents a person who uses a Finos account. This endpoint enables you to create and manage users on the Finos platform.
 
 This resource stores user attributes such as name, address, and date of birth, as well as financial information such as social security.
 
+
 ## Create user
+
+
+
 
 ## Retrieve user
 
