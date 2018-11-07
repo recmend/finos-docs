@@ -1018,7 +1018,89 @@ You can see a list of the bank accounts belonging to a user.
 
 # Deposits
 
+## Create deposit
+
+Create one-time ACH deposit with a linked bank account. Funds can be made instantly available depending upon your business account balance and your account configs. You can choose to defer the investments of the newly funds unless the funds have settled in T+1 days.
+
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/deposits \
+ -H "Bearer: sk_yourapikey" \
+ -H "Content-Type: application/json" \
+ -d $'{
+   "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+   "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+   "amount": "202.00"
+ }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+  "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+  "status": "pending"
+}
+```
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/deposits/`
+
+**ARGUMENTS**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+account_id | string | Brokerage account to which to fund the money
+bank_account_id | string | Bank account from which to debit the money
+amount | double | The deposit amount
+
 # Withdrawals
+
+## Create deposit
+
+Create one-time ACH withdrawal from brokerage account to a linked bank account.
+
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/withdrawal \
+ -H "Bearer: sk_yourapikey" \
+ -H "Content-Type: application/json" \
+ -d $'{
+   "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+   "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+   "amount": "202.00"
+ }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+  "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+  "status": "pending"
+}
+```
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/withdrawal/`
+
+**ARGUMENTS**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+account_id | string | Brokerage account to which to withdraw the money from
+bank_account_id | string | Bank account from which to credit the money
+amount | double | The withdrawal amount.
+
+<aside class="information">
+For an invested account, this will trigger sales of some equity to fulfill the requested withdrawal amount. In a highly volatile market, if the requested amount is more than 90% of the total account balance, the withdrawal amount could be lower than the requested amount. It can take **3-5 business days** for the funds to be available in the bank account.
+</aside>
 
 # Trading
 
