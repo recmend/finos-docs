@@ -331,9 +331,19 @@
           </li>
           <li>
             <a href="#deposits" class="toc-h1 toc-link" data-title="Deposits">Deposits</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-deposit" class="toc-h2 toc-link" data-title="Create deposit">Create deposit</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#withdrawals" class="toc-h1 toc-link" data-title="Withdrawals">Withdrawals</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-deposit-2" class="toc-h2 toc-link" data-title="Create deposit">Create deposit</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#trading" class="toc-h1 toc-link" data-title="Trading">Trading</a>
@@ -1545,7 +1555,113 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>You can see a list of the bank accounts belonging to a user.</p>
-<h1 id='deposits'>Deposits</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
+<h1 id='deposits'>Deposits</h1><h2 id='create-deposit'>Create deposit</h2>
+<p>Create one-time ACH deposit with a linked bank account. Funds can be made instantly available depending upon your business account balance and your account configs. You can choose to defer the investments of the newly funds unless the funds have settled in T+1 days.</p>
+
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/deposits <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+   "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+   "amount": "202.00"
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62936e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-15'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/deposits/</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>string</td>
+<td>Brokerage account to which to fund the money</td>
+</tr>
+<tr>
+<td>bank_account_id</td>
+<td>string</td>
+<td>Bank account from which to debit the money</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>double</td>
+<td>The deposit amount</td>
+</tr>
+</tbody></table>
+<h1 id='withdrawals'>Withdrawals</h1><h2 id='create-deposit-2'>Create deposit</h2>
+<p>Create one-time ACH withdrawal from brokerage account to a linked bank account.</p>
+
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/withdrawal <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+   "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+   "amount": "202.00"
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62936e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-16'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/withdrawal/</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>string</td>
+<td>Brokerage account to which to withdraw the money from</td>
+</tr>
+<tr>
+<td>bank_account_id</td>
+<td>string</td>
+<td>Bank account from which to credit the money</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>double</td>
+<td>The withdrawal amount.</td>
+</tr>
+</tbody></table>
+
+<aside class="information">
+For an invested account, this will trigger sales of some equity to fulfill the requested withdrawal amount. In a highly volatile market, if the requested amount is more than 90% of the total account balance, the withdrawal amount could be lower than the requested amount. It can take **3-5 business days** for the funds to be available in the bank account.
+</aside>
+<h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
