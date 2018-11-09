@@ -346,7 +346,27 @@
               </ul>
           </li>
           <li>
-            <a href="#trading" class="toc-h1 toc-link" data-title="Trading">Trading</a>
+            <a href="#orders" class="toc-h1 toc-link" data-title="Orders">Orders</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#order-types" class="toc-h2 toc-link" data-title="Order Types">Order Types</a>
+                  </li>
+                  <li>
+                    <a href="#order-lifecycle" class="toc-h2 toc-link" data-title="Order Lifecycle">Order Lifecycle</a>
+                  </li>
+                  <li>
+                    <a href="#create-order" class="toc-h2 toc-link" data-title="Create order">Create order</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-an-order" class="toc-h2 toc-link" data-title="Retrieve an order">Retrieve an order</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-order" class="toc-h2 toc-link" data-title="Cancel order">Cancel order</a>
+                  </li>
+                  <li>
+                    <a href="#list-orders" class="toc-h2 toc-link" data-title="List orders">List orders</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#portfolio" class="toc-h1 toc-link" data-title="Portfolio">Portfolio</a>
@@ -1337,7 +1357,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/<span class="o">{</span>account_id<span class="o">}</span> /
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/<span class="o">{</span>id<span class="o">}</span> /
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">$'{
@@ -1362,7 +1382,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
     </span><span class="s2">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"investment"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-9'>HTTP Request</h3>
-<p><code>PUT https://api.finos.com/v1/accounts/{account_id}</code></p>
+<p><code>PUT https://api.finos.com/v1/accounts/{id}</code></p>
 
 <p>This endpoint enables you to update an account. For any updates to the user profile information, use the users resource update method. You can change an active account from single to joint by passing required <code>joint_member</code> object in the request. You can also convert a <code>cash</code> account to an <code>investment</code> by passing the required fields for converting it to an investment account or vice versa.</p>
 <h2 id='list-accounts'>List accounts</h2>
@@ -1553,7 +1573,9 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
     </span><span class="p">},</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
+</span></code></pre><h3 id='http-request-15'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/users/6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts/</code></p>
+
 <p>You can see a list of the bank accounts belonging to a user.</p>
 <h1 id='deposits'>Deposits</h1><h2 id='create-deposit'>Create deposit</h2>
 <p>Create one-time ACH deposit with a linked bank account. Funds can be made instantly available depending upon your business account balance and your account configs. You can choose to defer the investments of the newly funds unless the funds have settled in T+1 days.</p>
@@ -1578,7 +1600,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
   </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-15'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request-16'>HTTP Request</h3>
 <p><code>POST https://api.finos.com/v1/deposits/</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
@@ -1629,7 +1651,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
   </span><span class="s2">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-16'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request-17'>HTTP Request</h3>
 <p><code>POST https://api.finos.com/v1/withdrawal/</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
@@ -1661,7 +1683,230 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <aside class="information">
 For an invested account, this will trigger sales of some equity to fulfill the requested withdrawal amount. In a highly volatile market, if the requested amount is more than 90% of the total account balance, the withdrawal amount could be lower than the requested amount. It can take **3-5 business days** for the funds to be available in the bank account.
 </aside>
-<h1 id='trading'>Trading</h1><h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
+<h1 id='orders'>Orders</h1>
+<p>The orders API allows a user to monitor, place and cancel orders. Each order has a unique identifier automatically generated by the system, and will be returned as part of the order object along with the rest of the fields described below. Once an order is placed, it can be queried using the order ID to check the status.</p>
+<h2 id='order-types'>Order Types</h2>
+<p>When you submit an order, you can choose one of supported order types. Currently, we support four different types of orders.</p>
+<h3 id='market-order'>Market Order</h3>
+<p>A market order is a request to buy or sell a security at the current-available price in the current market. It provides the most likely method of filling.</p>
+
+<p>If there is enough liquidity, market orders fill nearly instantaneously. However, with less liquid securities, it may still take some time.</p>
+
+<p>As a trade-off, your filling price may slip depending on the market activities. There is also the risk with market orders that they may get filled at unexpected prices due to the short period price spikes.</p>
+<h3 id='limit-order'>Limit Order</h3>
+<p>A limit order is an order to buy or sell at a specified price or better. A buy limit order (a limit order to buy) is executed at the specified limit price or lower (i.e., better). Conversely, a sell limit order (a limit order to sell) is executed at the specified limit price or higher (better). Unlike a market order, you have to specify the limit price parameter when submitting your order.</p>
+
+<p>While a limit order can prevent negative slippage, it may not get a fill for a quite a bit of time –- it will only be filled if price reaches the specified limit price level. You could miss a trading opportunity if price moves away from the limit price before your order can be filled. Note that even if the price moves to the limit price level, the order still may not get filled there are not enough buyers or sellers at that particular price level.</p>
+<h3 id='stop-order'>Stop Order</h3>
+<p>A stop order is an order to buy or sell a security when its price moves past a particular point, ensuring a higher probability of achieving a predetermined entry or exit price. Once the price crosses the predefined entry/exit point, the stop order becomes a market order.</p>
+
+<p>A stop order does not guarantee the order will be filled at certain price after converted to a market order.</p>
+
+<p>In order to submit a stop order, you will need to specify the stop price parameter in the API.</p>
+<h3 id='stop-limit-order'>Stop Limit Order</h3>
+<p>A stop-limit order is a conditional trade over a set time frame that combines the features of stop with those of a limit order and is used to mitigate risk. The stop-limit order will be executed at a specified price, or better, after a given stop price has been reached. Once the stop price is reached, the stop-limit order becomes a limit order to buy or sell at the limit price or better.</p>
+
+<p>In order to submit a stop limit order, you will need to specify both the limit and stop price parameters in the API.</p>
+<h2 id='order-lifecycle'>Order Lifecycle</h2>
+<table><thead>
+<tr>
+<th>Order Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>new</code></td>
+<td>The order has been received, and routed to exchanges for execution. This is the usual initial state of an order.</td>
+</tr>
+<tr>
+<td><code>partially_filled</code></td>
+<td>The order has been partially filled.</td>
+</tr>
+<tr>
+<td><code>filled</code></td>
+<td>The order has been filled, and no further updates will occur for the order.</td>
+</tr>
+<tr>
+<td><code>canceled</code></td>
+<td>The order has been canceled by the user, and no further updates will occur for the order.</td>
+</tr>
+<tr>
+<td><code>accepted</code></td>
+<td>The order has been received, but hasn’t yet been routed to exchanges. This state only occurs on rare occasions.</td>
+</tr>
+<tr>
+<td><code>rejected</code></td>
+<td>The order has been rejected, and no further updates will occur for the order. This state occurs on rare occasions, and may occur based on various conditions decided by the exchanges.</td>
+</tr>
+</tbody></table>
+
+<p>An order may be canceled through the API up until the point it reaches a state of  <code>filled</code></p>
+
+<aside class="information">
+Order API currently accepts orders only while the market is open. Out of the regular market hours, order submission will be rejected.
+</aside>
+<h2 id='create-order'>Create order</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/orders/ <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "symbol": "GOOG",
+   "quantity": "0.2",
+   "side": "buy",
+   "type": "market"
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"submitted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GOOG"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NASDAQ"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"asset_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us_equity"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accepted"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-18'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/orders</code></p>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>symbol</code> <em>required</em></td>
+<td>string</td>
+<td>symbol or asset ID to identify the asset to trade</td>
+</tr>
+<tr>
+<td><code>quantity</code> <em>required</em></td>
+<td>double</td>
+<td>number of shares up to four decimal places. Fractional shares are supported.</td>
+</tr>
+<tr>
+<td><code>side</code> <em>required</em></td>
+<td>string</td>
+<td><code>buy</code> or <code>sell</code></td>
+</tr>
+<tr>
+<td><code>type</code> <em>required</em></td>
+<td>string</td>
+<td><code>market</code>, <code>limit</code>, <code>stop</code>, or <code>stop_limit</code></td>
+</tr>
+<tr>
+<td><code>limit_price</code></td>
+<td>double</td>
+<td>required if type is <code>limit</code> or <code>stop_limit</code></td>
+</tr>
+<tr>
+<td><code>stop_price</code></td>
+<td>double</td>
+<td>required if type is <code>limit</code> or <code>stop_limit</code></td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-an-order'>Retrieve an order</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/orders/904837e3-3b76-47ec-b432-046db621571b /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"submitted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expired_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"canceled_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"failed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-05T05:48:59Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GOOG"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NASDAQ"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"asset_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us_equity"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107.00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"stop_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"106.00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_average_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"106.00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accepted"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-19'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/orders/{id}</code></p>
+
+<p>This endpoint enables you to retrieve a specific order.</p>
+<h2 id='cancel-order'>Cancel order</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X DELETE https://api.finos.com/v1/orders/<span class="o">{</span>id<span class="o">}</span> /
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"canceled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-20'>HTTP Request</h3>
+<p><code>DELETE https://api.finos.com/v1/orders/{id}</code></p>
+<h2 id='list-orders'>List orders</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/orders?limit<span class="o">=</span>10 <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ending_before"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"starting_after"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous_uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.finos.com/v1/orders?limit=3&amp;starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad85eb9-0713-4da7-8d36-07a8e4b00eab"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-21'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/orders</code></p>
+
+<p>Retrieves a list of orders for your account.</p>
+
+<aside class="information">
+<code>status</code> is order status query parameter. `open`, `closed` or `all`. Defaults to `open`.
+</aside>
+<h1 id='portfolio'>Portfolio</h1><h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
