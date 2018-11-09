@@ -1314,6 +1314,12 @@ Retrieves a list of orders for your account.
 <code>status</code> is order status query parameter. `open`, `closed` or `all`. Defaults to `open`.
 </aside>
 
-# Portfolio
+# Manage Accounts
+
+## Account Settings
+
+## Portfolio
+
+## Rebalancing
 
 # Statements
