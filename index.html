@@ -369,16 +369,33 @@
               </ul>
           </li>
           <li>
-            <a href="#manage-accounts" class="toc-h1 toc-link" data-title="Manage Accounts">Manage Accounts</a>
+            <a href="#managed-accounts" class="toc-h1 toc-link" data-title="Managed Accounts">Managed Accounts</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#account-settings" class="toc-h2 toc-link" data-title="Account Settings">Account Settings</a>
                   </li>
                   <li>
-                    <a href="#portfolio" class="toc-h2 toc-link" data-title="Portfolio">Portfolio</a>
+                    <a href="#rebalancing" class="toc-h2 toc-link" data-title="Rebalancing">Rebalancing</a>
                   </li>
                   <li>
-                    <a href="#rebalancing" class="toc-h2 toc-link" data-title="Rebalancing">Rebalancing</a>
+                    <a href="#tax-loss-harvesting" class="toc-h2 toc-link" data-title="Tax-Loss Harvesting">Tax-Loss Harvesting</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#portfolio-management" class="toc-h1 toc-link" data-title="Portfolio Management">Portfolio Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-asset-class" class="toc-h2 toc-link" data-title="Create asset class">Create asset class</a>
+                  </li>
+                  <li>
+                    <a href="#update-asset-class" class="toc-h2 toc-link" data-title="Update asset class">Update asset class</a>
+                  </li>
+                  <li>
+                    <a href="#create-portfolio" class="toc-h2 toc-link" data-title="Create portfolio">Create portfolio</a>
+                  </li>
+                  <li>
+                    <a href="#update-portfolio" class="toc-h2 toc-link" data-title="Update portfolio">Update portfolio</a>
                   </li>
               </ul>
           </li>
@@ -1917,7 +1934,284 @@ Order API currently accepts orders only while the market is open. Out of the reg
 <aside class="information">
 <code>status</code> is order status query parameter. `open`, `closed` or `all`. Defaults to `open`.
 </aside>
-<h1 id='manage-accounts'>Manage Accounts</h1><h2 id='account-settings'>Account Settings</h2><h2 id='portfolio'>Portfolio</h2><h2 id='rebalancing'>Rebalancing</h2><h1 id='statements'>Statements</h1>
+<h1 id='managed-accounts'>Managed Accounts</h1>
+<p>Finos offers complete suite of fully automated investment management APIs that maximizes the long-term, net-of-fee, after-tax, real investment return for each user’s particular tolerance for risk.  You can upload your own custom portfolios or use the one offered by us. Our portfolios are identified using Modern Portfolio Theory (MPT) and combine a broad set of asset classes, each usually represented by a low-cost, passive ETF.</p>
+<h2 id='account-settings'>Account Settings</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "managed": true,
+   "min_cash_percent": "1",
+   "max_cash_percent": "5",
+   "portfolio_id": "62936e70-1815-439b-bf89-8492855a7e6b"
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2d931510-d99f-494a-8c67-87feb05e1594"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"portfolio_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62936e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"managed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Configure account settings for investment management.</p>
+<h3 id='http-request-22'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings</code></p>
+
+<p><strong>AGRUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>portfolio_id</code></td>
+<td>string</td>
+<td>Portfolio Id created by the RIA developer based on user&#39;s risk profile. If not passed, will be automatically set by our default portfolio id based on user&#39;s risk profile.</td>
+</tr>
+<tr>
+<td><code>min_cash_percent</code></td>
+<td>Double</td>
+<td>Minimum cashing holdings in the account. Defaults to <code>1.0</code> or minimum of monthly management fees of the total AUM.</td>
+</tr>
+<tr>
+<td><code>max_cash_percent</code></td>
+<td>Double</td>
+<td>Maximum cashing holdings in the account. Defaults to <code>5.0</code> or minimum of monthly management fees of the total AUM.</td>
+</tr>
+</tbody></table>
+<h2 id='rebalancing'>Rebalancing</h2>
+<p>We continuously monitor and periodically rebalance portfolios to ensure they remain optimally diversified. We also attempt to minimize your taxes by analyzing the taxes likely to be generated by each asset class, and creating allocations that are specifically customized for taxable and non-taxable (retirement) portfolios.</p>
+<h2 id='tax-loss-harvesting'>Tax-Loss Harvesting</h2>
+<p>For taxable accounts, we monitor your portfolio daily to look for opportunities to harvest losses on the ETFs that represent each asset class in your portfolio. Under the right circumstances we will sell one of your ETFs that is trading at a loss and replace it with an alternative ETF that tracks a different (as supplied in the asset class as secondary), but highly correlated index to maintain the risk and return characteristics of your portfolio. We will then hold that alternative ETF in your portfolio for a minimum of 30 days to avoid wash sales. We will not sell the alternative ETF until it can be sold for a loss (which will generate additional tax-loss harvesting benefit).</p>
+<h1 id='portfolio-management'>Portfolio Management</h1>
+<p>Finos allows you to upload your own investment models or use the ones provided by us.
+Our default investment methodology employs five steps:</p>
+
+<ul>
+<li>Identify a diverse set of asset classes</li>
+<li>Select the most appropriate ETFs to represent each asset class</li>
+<li>Apply Modern Portfolio Theory to construct asset allocations that maximize the expected net-of-fee, after tax real return for each level of portfolio risk<br></li>
+<li>Determine your risk tolerance to select the allocation that is most appropriate for you</li>
+<li>Monitor and periodically rebalance your portfolio taking advantage of dividend reinvestment
+s</li>
+</ul>
+<h2 id='create-asset-class'>Create asset class</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/asset_classes/ <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "name": "U.S. Stocks",
+   "primary": "VTI",
+   "secondary": ["SCHB", "ITOT"]
+   ]
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-stocks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"U.S. Stocks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"primary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VTI"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"secondary"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SCHB"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ITOT"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Create an asset class type</p>
+<h3 id='http-request-23'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/asset_classes/</code></p>
+
+<aside class="information">
+Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable managed investment accounts.
+</aside>
+
+<p>The following table list our default asset class compositions.</p>
+
+<table><thead>
+<tr>
+<th>Asset Class</th>
+<th>ID</th>
+<th>Primary</th>
+<th>Secondary</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>U.S. Stocks</td>
+<td>us-stocks</td>
+<td>VTI</td>
+<td>SCHB, ITOT</td>
+</tr>
+<tr>
+<td>Foreign Stocks</td>
+<td>foreign-stocks</td>
+<td>SCHF</td>
+<td>VEA, IXUS</td>
+</tr>
+<tr>
+<td>Emerging Markets</td>
+<td>emerging-market</td>
+<td>VWO</td>
+<td>IEMG, SCHE</td>
+</tr>
+<tr>
+<td>Dividend Stocks</td>
+<td>dividend-stocks</td>
+<td>VIG</td>
+<td>SCHD, DVY</td>
+</tr>
+<tr>
+<td>Natural Resources</td>
+<td>natural-resources</td>
+<td>VDE</td>
+<td>XLE</td>
+</tr>
+<tr>
+<td>Municipal Bonds</td>
+<td>municipal-bonds</td>
+<td>VTEB</td>
+<td>TFI, MUB</td>
+</tr>
+<tr>
+<td>Emerging Market Bonds</td>
+<td>emerging-market-bonds</td>
+<td>EMB</td>
+<td>PCY, EMLC</td>
+</tr>
+<tr>
+<td>Corporate Bonds</td>
+<td>corporate-bonds</td>
+<td>LQD</td>
+<td>VCIT, SPIB</td>
+</tr>
+</tbody></table>
+<h2 id='update-asset-class'>Update asset class</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/asset_classes/us-equity <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "primary": "ITOT",
+   "secondary": ["SCHB", "VTI"]
+   ]
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-stocks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"U.S. Stocks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"primary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ITOT"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"secondary"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SCHB"</span><span class="p">,</span><span class="w"> </span><span class="s2">"VTI"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Update an asset class compositions.</p>
+<h3 id='http-request-24'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/asset_classes/us-equity</code></p>
+<h2 id='create-portfolio'>Create portfolio</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.finos.com/v1/portfolios/ <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "name": "moderate",
+   "allocations": [
+    {
+      "asset_class_id": "us-stocks",
+      "weight": "30.0"
+    },
+    {
+      "asset_class_id": "emerging-market-stocks",
+      "weight": "30.0"
+    },
+    ...
+   ]
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62936e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"moderate"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"allocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"asset_class_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-stocks"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30.0"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"asset_class_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emerging-market-stocks"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30.0"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Create a portfolio.</p>
+<h3 id='http-request-25'>HTTP Request</h3>
+<p><code>POST https://api.finos.com/v1/portfolios/</code></p>
+
+<aside class="information">
+weights must sum to 100
+</aside>
+<h2 id='update-portfolio'>Update portfolio</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/portfolios/ <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+   "name": "conservative",
+   "allocations": [
+    {
+      "asset_class_id": "us-stocks",
+      "weight": "80.0"
+    },
+    {
+      "asset_class_id": "emerging-market-bonds",
+      "weight": "20.0"
+    }
+   ]
+ }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62936e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"conservative"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"allocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"asset_class_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-stocks"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80.0"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"asset_class_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"emerging-market-bonds"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Update a portfolio composition.</p>
+<h3 id='http-request-26'>HTTP Request</h3>
+<p><code>PUT https://api.finos.com/v1/portfolios/</code></p>
+<h1 id='statements'>Statements</h1>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
