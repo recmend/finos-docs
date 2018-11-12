@@ -1940,7 +1940,7 @@ Order API currently accepts orders only while the market is open. Out of the reg
 <p>Retrieves a list of orders for your account.</p>
 
 <aside class="information">
-<code>status</code> is order status query parameter. `open`, `closed` or `all`. Defaults to `open`.
+<code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
 </aside>
 <h1 id='managed-accounts'>Managed Accounts</h1>
 <p>Finos offers complete suite of fully automated investment management APIs that maximizes the long-term, net-of-fee, after-tax, real investment return for each user’s particular tolerance for risk.  You can upload your own custom portfolios or use the one offered by us. Our portfolios are identified using Modern Portfolio Theory (MPT) and combine a broad set of asset classes, each usually represented by a low-cost, passive ETF.</p>
@@ -2008,9 +2008,8 @@ Our default investment methodology employs five steps:</p>
 <li>Identify a diverse set of asset classes</li>
 <li>Select the most appropriate ETFs to represent each asset class</li>
 <li>Apply Modern Portfolio Theory to construct asset allocations that maximize the expected net-of-fee, after tax real return for each level of portfolio risk<br></li>
-<li>Determine your risk tolerance to select the allocation that is most appropriate for you</li>
-<li>Monitor and periodically rebalance your portfolio taking advantage of dividend reinvestment
-s</li>
+<li>Select the allocation that is most appropriate for for an account based on their risk profile</li>
+<li>Monitor and periodically rebalance the portfolio taking advantage of dividend reinvestments</li>
 </ul>
 <h2 id='create-asset-class'>Create asset class</h2>
 <blockquote>
@@ -2039,10 +2038,6 @@ s</li>
 <p>Create an asset class type</p>
 <h3 id='http-request-23'>HTTP Request</h3>
 <p><code>PUT https://api.finos.com/v1/asset_classes/</code></p>
-
-<aside class="information">
-Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable managed investment accounts.
-</aside>
 
 <p>The following table list our default asset class compositions.</p>
 
@@ -2103,6 +2098,10 @@ Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable m
 <td>VCIT, SPIB</td>
 </tr>
 </tbody></table>
+
+<aside class="information">
+Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable managed investment accounts.
+</aside>
 <h2 id='update-asset-class'>Update asset class</h2>
 <blockquote>
 <p>Example Request</p>
