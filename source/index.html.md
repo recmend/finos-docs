@@ -1563,3 +1563,76 @@ Update a portfolio composition.
 `PUT https://api.finos.com/v1/portfolios/`
 
 # Statements
+
+## Retrieve a statement
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b /
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "id": "904837e3-3b76-47ec-b432-046db621571b",
+  "url": "signed-url"
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/statements/{id}`
+
+## List statements
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/statements?account_id=904837e3-3b76-47ec-b432-046db621571b \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 10,
+    "order": "desc",
+    "start_date": "2018-06-01T00:00:00Z",
+    "end_date": "2018-06-01T00:00:00Z",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/statements?account_id=&904837e3-3b76-47ec-b432-046db621571b"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+      "url": "signed-url"
+    },
+  ]
+}
+```
+Retrieves a list of statements for an account.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/statements?account_id={id}&start_date={datetime}`
+
+**ARGUMENTS**
+
+Parameter | Type | Description
+--------- | ---- | -----------
+`account_id` | string | Brokerage Account ID
+`start_date` | string | Start date in ISO format. Defaults to 90 days ago.
+`end_date` | string | End date in ISO format. Defaults to the end of the month.
+
+<aside class="information">
+<code>url</code> access will expire in 30 minutes.
+</aside>
