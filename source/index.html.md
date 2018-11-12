@@ -1311,7 +1311,7 @@ curl -X GET https://api.finos.com/v1/orders?limit=10 \
 Retrieves a list of orders for your account.
 
 <aside class="information">
-<code>status</code> is order status query parameter. `open`, `closed` or `all`. Defaults to `open`.
+<code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
 </aside>
 
 # Managed Accounts
@@ -1374,9 +1374,8 @@ Our default investment methodology employs five steps:
 * Identify a diverse set of asset classes
 * Select the most appropriate ETFs to represent each asset class
 * Apply Modern Portfolio Theory to construct asset allocations that maximize the expected net-of-fee, after tax real return for each level of portfolio risk  
-* Determine your risk tolerance to select the allocation that is most appropriate for you
-* Monitor and periodically rebalance your portfolio taking advantage of dividend reinvestment
-s
+* Select the allocation that is most appropriate for for an account based on their risk profile
+* Monitor and periodically rebalance the portfolio taking advantage of dividend reinvestments
 
 ## Create asset class
 
@@ -1411,10 +1410,6 @@ Create an asset class type
 
 `PUT https://api.finos.com/v1/asset_classes/`
 
-<aside class="information">
-Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable managed investment accounts.
-</aside>
-
 The following table list our default asset class compositions.
 
 Asset Class | ID | Primary | Secondary
@@ -1427,6 +1422,10 @@ Natural Resources | natural-resources | VDE | XLE
 Municipal Bonds | municipal-bonds | VTEB | TFI, MUB
 Emerging Market Bonds | emerging-market-bonds | EMB | PCY, EMLC
 Corporate Bonds | corporate-bonds | LQD | VCIT, SPIB
+
+<aside class="information">
+Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable managed investment accounts.
+</aside>
 
 ## Update asset class
 
