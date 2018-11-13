@@ -369,6 +369,20 @@
               </ul>
           </li>
           <li>
+            <a href="#market-data" class="toc-h1 toc-link" data-title="Market Data">Market Data</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#quote" class="toc-h2 toc-link" data-title="Quote">Quote</a>
+                  </li>
+                  <li>
+                    <a href="#chart" class="toc-h2 toc-link" data-title="Chart">Chart</a>
+                  </li>
+                  <li>
+                    <a href="#stats" class="toc-h2 toc-link" data-title="Stats">Stats</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#managed-accounts" class="toc-h1 toc-link" data-title="Managed Accounts">Managed Accounts</a>
               <ul class="toc-list-h2">
                   <li>
@@ -700,7 +714,7 @@
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 /
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">$'{
@@ -939,7 +953,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 /
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -968,7 +982,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/users/<span class="o">{</span>id<span class="o">}</span> /
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/users/<span class="o">{</span>id<span class="o">}</span> <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">$'{
@@ -1515,7 +1529,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 /
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -1546,7 +1560,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/<span class="o">{</span>id<span class="o">}</span> /
+<pre class="highlight shell tab-shell"><code>curl -X PUT https://api.finos.com/v1/accounts/<span class="o">{</span>id<span class="o">}</span> <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">$'{
@@ -2095,6 +2109,686 @@ Order API currently accepts orders only while the market is open. Out of the reg
 <aside class="information">
 <code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
 </aside>
+<h1 id='market-data'>Market Data</h1>
+<p>Market Data provided by <a href="https://iextrading.com/developer">IEX</a></p>
+<h2 id='quote'>Quote</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/stocks/AAPL <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AAPL"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apple Inc."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"primary_exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nasdaq Global Select"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Technology"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"calculation_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tops"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">191.72</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542119400827</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">194.17</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542056400444</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">197.18</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">191.45</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">195.93</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IEX real time price"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11:35:26 AM"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_update"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542126926772</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">23915298</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_realtime_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">195.93</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_realtime_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_last_updated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542126926772</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"delayed_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">196.655</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"delayed_price_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542126024362</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extended_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">195.93</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extended_change"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extended_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extended_price_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1542126926772</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"previous_close"</span><span class="p">:</span><span class="w"> </span><span class="mf">194.17</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"change"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.76</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00906</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_market_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0285</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">681586</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"average_total_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">38593744</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_bid_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">195.89</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_bid_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_ask_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">195.91</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iex_ask_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"market_cap"</span><span class="p">:</span><span class="w"> </span><span class="mi">929765830140</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"pe_ratio"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.76</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"52week_high"</span><span class="p">:</span><span class="w"> </span><span class="mf">233.47</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"52week_low"</span><span class="p">:</span><span class="w"> </span><span class="mf">150.24</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ytd_change"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.15317473555199398</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-26'>HTTP Request</h3>
+<p><code>GET https://api.finos.com/v1/stocks/{symbol}</code></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>symbol</code></td>
+<td>string</td>
+<td>refers to the stock ticker.</td>
+</tr>
+<tr>
+<td><code>company_name</code></td>
+<td>string</td>
+<td>refers to the company name.</td>
+</tr>
+<tr>
+<td><code>primary_exchange</code></td>
+<td>string</td>
+<td>refers to the primary listings exchange.</td>
+</tr>
+<tr>
+<td><code>sector</code></td>
+<td>string</td>
+<td>refers to the sector of the stock.</td>
+</tr>
+<tr>
+<td><code>calculation_price</code></td>
+<td>string</td>
+<td>refers to the source of the latest price. (<code>tops</code>, <code>sip</code>, <code>previous_close</code> or <code>close</code>)</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td>number</td>
+<td>refers to the official open price</td>
+</tr>
+<tr>
+<td><code>open_time</code></td>
+<td>number</td>
+<td>refers to the official listing exchange time for the open</td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td>number</td>
+<td>refers to the official close price</td>
+</tr>
+<tr>
+<td><code>close_time</code></td>
+<td>number</td>
+<td>refers to the official listing exchange time for the close</td>
+</tr>
+<tr>
+<td><code>high</code></td>
+<td>number</td>
+<td>refers to the market-wide highest price from the SIP. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>number</td>
+<td>refers to the market-wide lowest price from the SIP. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>latest_price</code></td>
+<td>number</td>
+<td>refers to the latest price being the IEX real time price, the 15 minute delayed market price, or the previous close price.</td>
+</tr>
+<tr>
+<td><code>latest_source</code></td>
+<td>string</td>
+<td>refers to the source of <code>latest_price</code>. (<code>IEX real time price</code>, <code>15 minute delayed price</code>, <code>Close</code> or <code>Previous close</code>)</td>
+</tr>
+<tr>
+<td><code>latest_time</code></td>
+<td>string</td>
+<td>refers to a human readable time of the <code>latest_price</code>. The format will vary based on <code>latest_source</code>.</td>
+</tr>
+<tr>
+<td><code>latest_update</code></td>
+<td>number</td>
+<td>refers to the update time of latestPrice in milliseconds since midnight Jan 1, 1970.</td>
+</tr>
+<tr>
+<td><code>latest_volume</code></td>
+<td>number</td>
+<td>refers to the total market volume of the stock.</td>
+</tr>
+<tr>
+<td><code>iex_realtime_price</code></td>
+<td>number</td>
+<td>refers to last sale price of the stock on IEX.</td>
+</tr>
+<tr>
+<td><code>iex_realtime_size</code></td>
+<td>number</td>
+<td>refers to last sale size of the stock on IEX.</td>
+</tr>
+<tr>
+<td><code>iex_last_updated</code></td>
+<td>number</td>
+<td>refers to the last update time of the data in milliseconds since midnight Jan 1, 1970 UTC or -1 or 0. If the value is -1 or 0, IEX has not quoted the symbol in the trading day.</td>
+</tr>
+<tr>
+<td><code>delayed_price</code></td>
+<td>number</td>
+<td>refers to the 15 minute delayed market price during normal market hours 9:30 - 16:00.</td>
+</tr>
+<tr>
+<td><code>delayed_price_time</code></td>
+<td>number</td>
+<td>refers to the time of the delayed market price during normal market hours 9:30 - 16:00.</td>
+</tr>
+<tr>
+<td><code>extended_price</code></td>
+<td>number</td>
+<td>refers to the 15 minute delayed market price outside normal market hours 8:00 - 9:30 and 16:00 - 17:00.</td>
+</tr>
+<tr>
+<td><code>extended_change</code></td>
+<td>number</td>
+<td>is calculated using <code>extended_price</code> from <code>calculation_price</code>.</td>
+</tr>
+<tr>
+<td><code>extended_change_percent</code></td>
+<td>number</td>
+<td>is calculated using <code>extended_price</code> from <code>calculation_price</code>.</td>
+</tr>
+<tr>
+<td><code>extended_change</code></td>
+<td>number</td>
+<td>refers to the time of the delayed market price outside normal market hours 8:00 - 9:30 and 16:00 - 17:00.</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>number</td>
+<td>is calculated using <code>calculation_price</code> from <code>previous_close</code>.</td>
+</tr>
+<tr>
+<td><code>change_percent</code></td>
+<td>number</td>
+<td>is calculated using <code>calculation_price</code> from <code>previous_close</code>.</td>
+</tr>
+<tr>
+<td><code>iex_market_percent</code></td>
+<td>number</td>
+<td>refers to IEX’s percentage of the market in the stock.</td>
+</tr>
+<tr>
+<td><code>iex_volume</code></td>
+<td>number</td>
+<td>refers to shares traded in the stock on IEX.</td>
+</tr>
+<tr>
+<td><code>average_total_volume</code></td>
+<td>number</td>
+<td>refers to the 30 day average volume on all markets.</td>
+</tr>
+<tr>
+<td><code>iex_bid_price</code></td>
+<td>number</td>
+<td>refers to the best bid price on IEX.</td>
+</tr>
+<tr>
+<td><code>iex_bid_size</code></td>
+<td>number</td>
+<td>refers to amount of shares on the bid on IEX.</td>
+</tr>
+<tr>
+<td><code>iex_ask_price</code></td>
+<td>number</td>
+<td>refers to the best ask price on IEX.</td>
+</tr>
+<tr>
+<td><code>iex_ask_size</code></td>
+<td>number</td>
+<td>refers to amount of shares on the ask on IEX.</td>
+</tr>
+<tr>
+<td><code>market_cap</code></td>
+<td>number</td>
+<td>is calculated in real time using <code>calculation_price</code>.</td>
+</tr>
+<tr>
+<td><code>pe_ratio</code></td>
+<td>number</td>
+<td>is calculated in real time using <code>calculation_price</code>.</td>
+</tr>
+<tr>
+<td><code>52week_high</code></td>
+<td>number</td>
+<td>refers to the adjusted 52 week high.</td>
+</tr>
+<tr>
+<td><code>52week_low</code></td>
+<td>number</td>
+<td>refers to the adjusted 52 week low.</td>
+</tr>
+<tr>
+<td><code>ytd_change</code></td>
+<td>number</td>
+<td>refers to the price change percentage from start of year to previous close.</td>
+</tr>
+</tbody></table>
+<h2 id='chart'>Chart</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/stocks/AAPL/chart/1m <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response for .../3m</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-03"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.1192</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.5275</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">142.4619</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.1092</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">19985714</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unadjusted_close"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unadjusted_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">19985714</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"change"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.039835</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.028</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"vwap"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.0507</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 03, 17"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"change_over_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0039</span><span class="w">
+  </span><span class="p">}</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example Response for .../1d</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20171215"</span><span class="w">
+    </span><span class="s2">"minute"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09:30"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09:30 AM"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.98</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.775</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"average"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.889</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">3070</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"notional"</span><span class="p">:</span><span class="w"> </span><span class="mf">441740.275</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"number_of_trades"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_high"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.98</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_low"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.775</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_average"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.889</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">3070</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_notional"</span><span class="p">:</span><span class="w"> </span><span class="mf">441740.275</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_number_of_trades"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.98</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.775</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_open"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.98</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_close"</span><span class="p">:</span><span class="w"> </span><span class="mf">143.775</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"change_over_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0039</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_change_over_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.004</span><span class="w">
+  </span><span class="p">}</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='http-request-27'>HTTP Request</h3>
+<ul>
+<li><code>GET /v1/stocks/AAPL/chart</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/5y</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/2y</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/1y</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/ytd</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/6m</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/3m</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/1m</code></li>
+<li><code>GET /v1/stocks/AAPL/chart/1d</code></li>
+</ul>
+
+<p><strong>ARGUMENTS</strong></p>
+
+<table><thead>
+<tr>
+<th>Range</th>
+<th>Description</th>
+<th>Source</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>5y</code></td>
+<td>Five years</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>2y</code></td>
+<td>Two years</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>1y</code></td>
+<td>One year</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>ytd</code></td>
+<td>Year-to-date</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>6m</code></td>
+<td>Six months</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>3m</code></td>
+<td>Three months</td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>1m</code></td>
+<td>One month <code>default</code></td>
+<td>Historically adjusted market-wide data</td>
+</tr>
+<tr>
+<td><code>1d</code></td>
+<td>One day</td>
+<td>IEX-only data by minute</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Availability</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>minute</code></td>
+<td>string</td>
+<td>is only available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>market_average</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_notional</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_number_of_trades</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_open</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_close</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_high</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_low</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_volume</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>market_change_over_time</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart. Percent change  of each interval relative to first value. 15 minute delayed</td>
+</tr>
+<tr>
+<td><code>average</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>notional</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>number_of_trades</code></td>
+<td>number</td>
+<td>is only available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>simplify_factor</code></td>
+<td>array</td>
+<td>is only available on <code>1d</code> chart, and only when chartSimplify is true. The first element is the original number of points. Second element is how many remain after simplification.</td>
+</tr>
+<tr>
+<td><code>high</code></td>
+<td>number</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>number</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>number</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>number</td>
+<td>is available on all charts. A variable formatted version of the date depending on the range. Optional convienience field.</td>
+</tr>
+<tr>
+<td><code>change_over_time</code></td>
+<td>number</td>
+<td>is available on all charts. Percent change of each interval relative to first value. Useful for comparing multiple stocks.</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>string</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td>number</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td>number</td>
+<td>is available on all charts.</td>
+</tr>
+<tr>
+<td><code>unadjusted_volume</code></td>
+<td>number</td>
+<td>is not available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>number</td>
+<td>is not available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>change_percent</code></td>
+<td>number</td>
+<td>is not available on <code>1d</code> chart.</td>
+</tr>
+<tr>
+<td><code>vwap</code></td>
+<td>number</td>
+<td>is not available on <code>1d</code> chart.</td>
+</tr>
+</tbody></table>
+<h2 id='stats'>Stats</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/stocks/AAPL/stats <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apple Inc."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"market_cap"</span><span class="p">:</span><span class="w"> </span><span class="mi">760334287200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"beta"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.295227</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"52week_high"</span><span class="p">:</span><span class="w"> </span><span class="mf">156.65</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"52week_low"</span><span class="p">:</span><span class="w"> </span><span class="mf">93.63</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"52week_change"</span><span class="p">:</span><span class="w"> </span><span class="mf">58.801903</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"short_interest"</span><span class="p">:</span><span class="w"> </span><span class="mi">55544287</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"short_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-15"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dividend_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.52</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dividend_yield"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.7280395</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ex_dividend_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-05-11 00:00:00.0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_EPS"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.29</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest_EPS_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-30"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"outstanding_shares"</span><span class="p">:</span><span class="w"> </span><span class="mi">5213840000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"float"</span><span class="p">:</span><span class="w"> </span><span class="mi">5203997571</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"return_on_equity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08772939519857577</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"consensus_EPS"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.22</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"number_of_estimates"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AAPL"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EBITDA"</span><span class="p">:</span><span class="w"> </span><span class="mi">73828000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"revenue"</span><span class="p">:</span><span class="w"> </span><span class="mi">220457000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gross_profit"</span><span class="p">:</span><span class="w"> </span><span class="mi">84686000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">256464000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"debt"</span><span class="p">:</span><span class="w"> </span><span class="mi">358038000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ttm_EPS"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.55</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"revenue_per_share"</span><span class="p">:</span><span class="w"> </span><span class="mf">42.2830389885382</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"revenue_per_employee"</span><span class="p">:</span><span class="w"> </span><span class="mf">1900491.3793103448</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"pe_ratio_high"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"pe_ratio_low"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EPS_surprise_dollar"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EPS_surprise_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.9604</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"return_on_assets"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.15</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"return_on_capital"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"profit_margin"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.73</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price_to_sales"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.6668503</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price_to_book"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.19</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"200day_moving_average"</span><span class="p">:</span><span class="w"> </span><span class="mf">140.60541</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"50day_moving_average"</span><span class="p">:</span><span class="w"> </span><span class="mf">156.49678</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"institution_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">32.1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"insider_percent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"short_ratio"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6915414</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"5year_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5902546932200027</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"2year_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3777449874142869</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"1year_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.39751716851558366</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ytd_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36659492036160124</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"6month_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12208398133748043</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"3month_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08466584665846649</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"1month_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.009668596145283263</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"5day_change_percent"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.005762605699968781</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-28'>HTTP request</h3>
+<p><code>GET /v1/stocks/{symbol}/stats</code></p>
+<h3 id='response-3'>Response</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>market_cap</code></td>
+<td>number</td>
+<td>is not calculated in real time.</td>
+</tr>
+<tr>
+<td><code>latest_EPS</code></td>
+<td>number</td>
+<td>Most recent quarter</td>
+</tr>
+<tr>
+<td><code>return_on_equity</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>consensus_EPS</code> number</td>
+<td>Most recent quarter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>number_of_estimates</code></td>
+<td>number</td>
+<td>Most recent quarter</td>
+</tr>
+<tr>
+<td><code>EBITDA</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>revenue</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>gross_profit</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>cash</code></td>
+<td>number</td>
+<td>reers to total cash. Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>debt</code></td>
+<td>number</td>
+<td>refers to total debt. Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>ttm_EPS</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>revenue_per_share</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>revenue_per_employee</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>EPS_surprise_dollar</code></td>
+<td>number</td>
+<td>refers to the difference between actual EPS and consensus EPS in dollars.</td>
+</tr>
+<tr>
+<td><code>EPS_surprise_percent</code></td>
+<td>number</td>
+<td>refers to the percent difference between actual EPS and consensus EPS.</td>
+</tr>
+<tr>
+<td><code>return_on_assets</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>return_on_capital</code></td>
+<td>number</td>
+<td>Trailing twelve months</td>
+</tr>
+<tr>
+<td><code>institution_percent</code></td>
+<td>number</td>
+<td>represents top 15 institutions</td>
+</tr>
+</tbody></table>
 <h1 id='managed-accounts'>Managed Accounts</h1>
 <p>Finos offers complete suite of fully automated investment management APIs that maximizes the long-term, net-of-fee, after-tax, real investment return for each user’s particular tolerance for risk.  You can upload your own custom portfolios or use the one offered by us. Our portfolios are identified using Modern Portfolio Theory (MPT) and combine a broad set of asset classes, each usually represented by a low-cost, passive ETF.</p>
 <h2 id='account-settings'>Account Settings</h2>
@@ -2121,7 +2815,7 @@ Order API currently accepts orders only while the market is open. Out of the reg
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Configure account settings for investment management.</p>
-<h3 id='http-request-26'>HTTP Request</h3>
+<h3 id='http-request-29'>HTTP Request</h3>
 <p><code>PUT https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings</code></p>
 
 <p><strong>AGRUMENTS</strong></p>
@@ -2189,7 +2883,7 @@ Our default investment methodology employs five steps:</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Create an asset class type</p>
-<h3 id='http-request-27'>HTTP Request</h3>
+<h3 id='http-request-30'>HTTP Request</h3>
 <p><code>PUT https://api.finos.com/v1/asset_classes/</code></p>
 
 <p>The following table list our default asset class compositions.</p>
@@ -2285,7 +2979,7 @@ Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable m
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Update an asset class compositions.</p>
-<h3 id='http-request-28'>HTTP Request</h3>
+<h3 id='http-request-31'>HTTP Request</h3>
 <p><code>PUT https://api.finos.com/v1/asset_classes/us-equity</code></p>
 <h2 id='create-portfolio'>Create portfolio</h2>
 <blockquote>
@@ -2329,7 +3023,7 @@ Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable m
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Create a portfolio.</p>
-<h3 id='http-request-29'>HTTP Request</h3>
+<h3 id='http-request-32'>HTTP Request</h3>
 <p><code>POST https://api.finos.com/v1/portfolios/</code></p>
 
 <aside class="information">
@@ -2375,13 +3069,13 @@ weights must sum to 100
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Update a portfolio composition.</p>
-<h3 id='http-request-30'>HTTP Request</h3>
+<h3 id='http-request-33'>HTTP Request</h3>
 <p><code>PUT https://api.finos.com/v1/portfolios/</code></p>
 <h1 id='statements'>Statements</h1><h2 id='retrieve-a-statement'>Retrieve a statement</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b /
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b <span class="se">\</span>
   -H <span class="s2">"Bearer: sk_yourapikey"</span>
 </code></pre>
 <blockquote>
@@ -2391,7 +3085,7 @@ weights must sum to 100
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"904837e3-3b76-47ec-b432-046db621571b"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signed-url"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-31'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request-34'>HTTP Request</h3>
 <p><code>GET https://api.finos.com/v1/statements/{id}</code></p>
 <h2 id='list-statements'>List statements</h2>
 <blockquote>
@@ -2425,7 +3119,7 @@ weights must sum to 100
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Retrieves a list of statements for an account.</p>
-<h3 id='http-request-32'>HTTP Request</h3>
+<h3 id='http-request-35'>HTTP Request</h3>
 <p><code>GET https://api.finos.com/v1/statements?account_id={id}&amp;start_date={datetime}</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
