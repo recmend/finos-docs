@@ -1523,9 +1523,9 @@ Our default investment methodology employs five steps:
 
 * Identify a diverse set of asset classes
 * Select the most appropriate ETFs to represent each asset class
-* Apply Modern Portfolio Theory to construct asset allocations that maximize the expected net-of-fee, after tax real return for each level of portfolio risk  
-* Select the allocation that is most appropriate for for an account based on their risk profile
-* Monitor and periodically rebalance the portfolio taking advantage of dividend reinvestments
+* Apply Modern Portfolio Theory to construct asset allocations that maximize the expected net-of-fee, after tax real return  
+* Select the allocation that is most appropriate for the account based on the risk profile
+* Monitor and periodically rebalance the portfolio while reinvesting dividends
 
 ## Create asset class
 
@@ -1569,6 +1569,7 @@ Foreign Stocks | foreign-stocks | SCHF | VEA, IXUS
 Emerging Markets | emerging-market | VWO | IEMG, SCHE
 Dividend Stocks | dividend-stocks | VIG | SCHD, DVY
 Natural Resources | natural-resources | VDE | XLE
+Real Estate | real-estate | VNQ | IYR, SCHH
 Municipal Bonds | municipal-bonds | VTEB | TFI, MUB
 Emerging Market Bonds | emerging-market-bonds | EMB | PCY, EMLC
 Corporate Bonds | corporate-bonds | LQD | VCIT, SPIB
