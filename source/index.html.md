@@ -262,7 +262,7 @@ Retrieve a specific webhook.
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 /
+curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -444,7 +444,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 /
+curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -478,7 +478,7 @@ This endpoint enables you to retrieve a specific user.
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/users/{id} /
+curl -X PUT https://api.finos.com/v1/users/{id} \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -897,7 +897,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 /
+curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -933,7 +933,7 @@ This endpoint enables you to retrieve a specific account.
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/accounts/{id} /
+curl -X PUT https://api.finos.com/v1/accounts/{id} \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -1464,6 +1464,323 @@ Retrieves a list of orders for your account.
 <code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
 </aside>
 
+# Market Data
+Market Data provided by [IEX](https://iextrading.com/developer)
+
+## Quote
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/stocks/AAPL \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "symbol": "AAPL",
+  "company_name": "Apple Inc.",
+  "primary_exchange": "Nasdaq Global Select",
+  "sector": "Technology",
+  "calculation_price": "tops",
+  "open": 191.72,
+  "open_time": 1542119400827,
+  "close": 194.17,
+  "close_time": 1542056400444,
+  "high": 197.18,
+  "low": 191.45,
+  "latest_price": 195.93,
+  "latest_source": "IEX real time price",
+  "latest_time": "11:35:26 AM",
+  "latest_update": 1542126926772,
+  "latest_volume": 23915298,
+  "iex_realtime_price": 195.93,
+  "iex_realtime_size": 100,
+  "iex_last_updated": 1542126926772,
+  "delayed_price": 196.655,
+  "delayed_price_time": 1542126024362,
+  "extended_price": 195.93,
+  "extended_change": 0,
+  "extended_change_percent": 0,
+  "extended_price_time": 1542126926772,
+  "previous_close": 194.17,
+  "change": 1.76,
+  "change_percent": 0.00906,
+  "iex_market_percent": 0.0285,
+  "iex_volume": 681586,
+  "average_total_volume": 38593744,
+  "iex_bid_price": 195.89,
+  "iex_bid_size": 100,
+  "iex_ask_price": 195.91,
+  "iex_ask_size": 100,
+  "market_cap": 929765830140,
+  "pe_ratio": 17.76,
+  "52week_high": 233.47,
+  "52week_low": 150.24,
+  "ytd_change": 0.15317473555199398
+}
+```
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/stocks/{symbol}`
+
+### Response
+
+Parameter | Type | Description
+--------- | ---- | -----------
+`symbol` | string	| refers to the stock ticker.
+`company_name` | string | refers to the company name.
+`primary_exchange` | string	| refers to the primary listings exchange.
+`sector` | string	| refers to the sector of the stock.
+`calculation_price` |	string | refers to the source of the latest price. (`tops`, `sip`, `previous_close` or `close`)
+`open` | number	| refers to the official open price
+`open_time` | number |refers to the official listing exchange time for the open
+`close`	| number | refers to the official close price
+`close_time` | number |	refers to the official listing exchange time for the close
+`high` | number |	refers to the market-wide highest price from the SIP. 15 minute delayed
+`low` |	number | refers to the market-wide lowest price from the SIP. 15 minute delayed
+`latest_price` | number |	refers to the latest price being the IEX real time price, the 15 minute delayed market price, or the previous close price.
+`latest_source`	| string | refers to the source of `latest_price`. (`IEX real time price`, `15 minute delayed price`, `Close` or `Previous close`)
+`latest_time`	| string | refers to a human readable time of the `latest_price`. The format will vary based on `latest_source`.
+`latest_update` |	number |refers to the update time of latestPrice in milliseconds since midnight Jan 1, 1970.
+`latest_volume`	| number |refers to the total market volume of the stock.
+`iex_realtime_price` | number |	refers to last sale price of the stock on IEX.
+`iex_realtime_size` |	number | refers to last sale size of the stock on IEX.
+`iex_last_updated`	| number |	refers to the last update time of the data in milliseconds since midnight Jan 1, 1970 UTC or -1 or 0. If the value is -1 or 0, IEX has not quoted the symbol in the trading day.
+`delayed_price` |	number | refers to the 15 minute delayed market price during normal market hours 9:30 - 16:00.
+`delayed_price_time` | number |	refers to the time of the delayed market price during normal market hours 9:30 - 16:00.
+`extended_price` | number	| refers to the 15 minute delayed market price outside normal market hours 8:00 - 9:30 and 16:00 - 17:00.
+`extended_change`	| number | is calculated using `extended_price` from `calculation_price`.
+`extended_change_percent` |	number | is calculated using `extended_price` from `calculation_price`.
+`extended_change` |	number | refers to the time of the delayed market price outside normal market hours 8:00 - 9:30 and 16:00 - 17:00.
+`change` | number |	is calculated using `calculation_price` from `previous_close`.
+`change_percent` | number |	is calculated using `calculation_price` from `previous_close`.
+`iex_market_percent` | number	| refers to IEX’s percentage of the market in the stock.
+`iex_volume` | number	| refers to shares traded in the stock on IEX.
+`average_total_volume` | number | refers to the 30 day average volume on all markets.
+`iex_bid_price`	| number | refers to the best bid price on IEX.
+`iex_bid_size` |	number | refers to amount of shares on the bid on IEX.
+`iex_ask_price` |	number | refers to the best ask price on IEX.
+`iex_ask_size` |	number | refers to amount of shares on the ask on IEX.
+`market_cap`	| number	| is calculated in real time using `calculation_price`.
+`pe_ratio`	| number |	is calculated in real time using `calculation_price`.
+`52week_high` |	number | refers to the adjusted 52 week high.
+`52week_low` |	number |	refers to the adjusted 52 week low.
+`ytd_change`	| number	| refers to the price change percentage from start of year to previous close.
+
+## Chart
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/stocks/AAPL/chart/1m \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response for .../3m
+
+```json
+[
+  {
+    "date": "2017-04-03",
+    "open": 143.1192,
+    "high": 143.5275,
+    "low": 142.4619,
+    "close": 143.1092,
+    "volume": 19985714,
+    "unadjusted_close": 143.7,
+    "unadjusted_volume": 19985714,
+    "change": 0.039835,
+    "change_percent": 0.028,
+    "vwap": 143.0507,
+    "label": "Apr 03, 17",
+    "change_over_time": -0.0039
+  } // , { ... }
+]
+```
+
+> Example Response for .../1d
+
+```json
+[
+  {
+    "date": "20171215"
+    "minute": "09:30",
+    "label": "09:30 AM",
+    "high": 143.98,
+    "low": 143.775,
+    "average": 143.889,
+    "volume": 3070,
+    "notional": 441740.275,
+    "number_of_trades": 20,
+    "market_high": 143.98,
+    "market_low": 143.775,
+    "market_average": 143.889,
+    "market_volume": 3070,
+    "market_notional": 441740.275,
+    "market_number_of_trades": 20,
+    "open": 143.98,
+    "close": 143.775,
+    "market_open": 143.98,
+    "market_close": 143.775,
+    "change_over_time": -0.0039,
+    "market_change_over_time": -0.004
+  } // , { ... }
+]
+```
+
+### HTTP Request
+
+* `GET /v1/stocks/AAPL/chart`
+* `GET /v1/stocks/AAPL/chart/5y`
+* `GET /v1/stocks/AAPL/chart/2y`
+* `GET /v1/stocks/AAPL/chart/1y`
+* `GET /v1/stocks/AAPL/chart/ytd`
+* `GET /v1/stocks/AAPL/chart/6m`
+* `GET /v1/stocks/AAPL/chart/3m`
+* `GET /v1/stocks/AAPL/chart/1m`
+* `GET /v1/stocks/AAPL/chart/1d`
+
+**ARGUMENTS**
+
+Range |	Description |	Source
+----- | ----------- | ------
+`5y` | Five years |	Historically adjusted market-wide data
+`2y` |	Two years |	Historically adjusted market-wide data
+`1y` |	One year |	Historically adjusted market-wide data
+`ytd` |	Year-to-date | Historically adjusted market-wide data
+`6m` | Six months |	Historically adjusted market-wide data
+`3m` |	Three months |	Historically adjusted market-wide data
+`1m` |	One month `default` |	Historically adjusted market-wide data
+`1d` |	One day |	IEX-only data by minute
+
+
+### Response
+
+Key | Type | Availability
+--- | ---- | ------------
+`minute` | string |	is only available on `1d` chart.
+`market_average`	| number | is only available on `1d` chart. 15 minute delayed
+`market_notional` | number | is only available on `1d` chart. 15 minute delayed
+`market_number_of_trades` | number |	is only available on `1d` chart. 15 minute delayed
+`market_open` | number | is only available on `1d` chart. 15 minute delayed
+`market_close`	| number | is only available on `1d` chart. 15 minute delayed
+`market_high` | number | is only available on `1d` chart. 15 minute delayed
+`market_low`	| number | is only available on `1d` chart. 15 minute delayed
+`market_volume` | number | is only available on `1d` chart. 15 minute delayed
+`market_change_over_time` | number |	is only available on `1d` chart. Percent change  of each interval relative to first value. 15 minute delayed
+`average` | number | is only available on `1d` chart.
+`notional` | number | is only available on `1d` chart.
+`number_of_trades` | number	| is only available on `1d` chart.
+`simplify_factor` | array | is only available on `1d` chart, and only when chartSimplify is true. The first element is the original number of points. Second element is how many remain after simplification.
+`high` | number |	is available on all charts.
+`low`	| number |	is available on all charts.
+`volume` | number |	is available on all charts.
+`label`	| number | is available on all charts. A variable formatted version of the date depending on the range. Optional convienience field.
+`change_over_time` | number |	is available on all charts. Percent change of each interval relative to first value. Useful for comparing multiple stocks.
+`date` | string | is available on all charts.
+`open` | number | is available on all charts.
+`close` |	number | is available on all charts.
+`unadjusted_volume` |	number | is not available on `1d` chart.
+`change` |	number | is not available on `1d` chart.
+`change_percent` | number |	is not available on `1d` chart.
+`vwap` | number |	is not available on `1d` chart.
+
+## Stats
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/stocks/AAPL/stats \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "company_name": "Apple Inc.",
+  "market_cap": 760334287200,
+  "beta": 1.295227,
+  "52week_high": 156.65,
+  "52week_low": 93.63,
+  "52week_change": 58.801903,
+  "short_interest": 55544287,
+  "short_date": "2017-06-15",
+  "dividend_rate": 2.52,
+  "dividend_yield": 1.7280395,
+  "ex_dividend_date": "2017-05-11 00:00:00.0",
+  "latest_EPS": 8.29,
+  "latest_EPS_date": "2016-09-30",
+  "outstanding_shares": 5213840000,
+  "float": 5203997571,
+  "return_on_equity": 0.08772939519857577,
+  "consensus_EPS": 3.22,
+  "number_of_estimates": 15,
+  "symbol": "AAPL",
+  "EBITDA": 73828000000,
+  "revenue": 220457000000,
+  "gross_profit": 84686000000,
+  "cash": 256464000000,
+  "debt": 358038000000,
+  "ttm_EPS": 8.55,
+  "revenue_per_share": 42.2830389885382,
+  "revenue_per_employee": 1900491.3793103448,
+  "pe_ratio_high": 25.5,
+  "pe_ratio_low": 8.7,
+  "EPS_surprise_dollar": null,
+  "EPS_surprise_percent": 3.9604,
+  "return_on_assets": 14.15,
+  "return_on_capital": null,
+  "profit_margin": 20.73,
+  "price_to_sales": 3.6668503,
+  "price_to_book": 6.19,
+  "200day_moving_average": 140.60541,
+  "50day_moving_average": 156.49678,
+  "institution_percent": 32.1,
+  "insider_percent": null,
+  "short_ratio": 1.6915414,
+  "5year_change_percent": 0.5902546932200027,
+  "2year_change_percent": 0.3777449874142869,
+  "1year_change_percent": 0.39751716851558366,
+  "ytd_change_percent": 0.36659492036160124,
+  "6month_change_percent": 0.12208398133748043,
+  "3month_change_percent": 0.08466584665846649,
+  "1month_change_percent": 0.009668596145283263,
+  "5day_change_percent": -0.005762605699968781
+}
+```
+
+### HTTP request
+
+`GET /v1/stocks/{symbol}/stats`
+
+### Response
+
+Key | Type | Description
+--- | ---- | -----------
+`market_cap` | number |	is not calculated in real time.
+`latest_EPS` | number	| Most recent quarter
+`return_on_equity` | number |	Trailing twelve months
+`consensus_EPS`	number | Most recent quarter
+`number_of_estimates` |	number | Most recent quarter
+`EBITDA` | number	| Trailing twelve months
+`revenue` |	number	| Trailing twelve months
+`gross_profit` | number | Trailing twelve months
+`cash` | number |	reers to total cash. Trailing twelve months
+`debt` | number	| refers to total debt. Trailing twelve months
+`ttm_EPS` |	number | Trailing twelve months
+`revenue_per_share`	| number | Trailing twelve months
+`revenue_per_employee` | number |	Trailing twelve months
+`EPS_surprise_dollar`	| number | refers to the difference between actual EPS and consensus EPS in dollars.
+`EPS_surprise_percent` | number |	refers to the percent difference between actual EPS and consensus EPS.
+`return_on_assets` | number | Trailing twelve months
+`return_on_capital` | number | Trailing twelve months
+`institution_percent` | number | represents top 15 institutions
+
 # Managed Accounts
 
 Finos offers complete suite of fully automated investment management APIs that maximizes the long-term, net-of-fee, after-tax, real investment return for each user’s particular tolerance for risk.  You can upload your own custom portfolios or use the one offered by us. Our portfolios are identified using Modern Portfolio Theory (MPT) and combine a broad set of asset classes, each usually represented by a low-cost, passive ETF.
@@ -1719,7 +2036,7 @@ Update a portfolio composition.
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b /
+curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b \
   -H "Bearer: sk_yourapikey"
 ```
 
