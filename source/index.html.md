@@ -919,7 +919,9 @@ curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e15
   },
   "joint_member": {
 
-  }
+  },
+  "available_cash": "100.12",
+  "portfolio_market_value": "855.9"
 }
 ```
 
@@ -928,6 +930,113 @@ This endpoint enables you to retrieve a specific account.
 ### HTTP Request
 
 `GET https://api.finos.com/v1/accounts/{id}`
+
+### Response
+
+Key | Type | Description
+--- | ---- | -----------
+`available_cash` | double | Current available cash in the account. Also known as "buying power".
+`portfolio_market_value` | double | is calculated in real time using current_price of the account holdings.
+
+## List Account Positions
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/positions \
+  -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/acccounts/{id}/positions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "asset_id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      "symbol": "AAPL",
+      "exchange": "NASDAQ",
+      "average_purchase_price": "100.0",
+      "quantity": "5",
+      "side": "buy",
+      "market_value": "600.0",
+      "cost_basis": "500.0",
+      "current_price": "120.0",
+      "lastday_price": "119.0",
+      "change_today": "0.0084"
+    }
+  ]
+}
+```
+
+Retrieves the account’s open position.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/accounts/{account_id}/positions`
+
+## List Transactions
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/transactions \
+  -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/acccounts/{account_id}/transactions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+      "type": "deposit"
+    },
+    {
+      "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+      "type": "withdrawal"
+    }
+    {
+      "id": "904837e3-3b76-47ec-b432-046db621571b",
+      "type": "order"
+    }
+  ]
+}
+```
+
+Retrieves the account’s transactions including deposits, withdrawal and trade confirmations.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/accounts/{account_id}/transactions`
+
+### Response
+
+Key | Type | Description
+--- | ---- | -----------
+`id` | string | ID of the deposit, withdrawal or trade order. Use the retrieve method to pull the details of the transaction.
+`type` | string | type of transaction. `withdrawal`, `trade`, `deposit`
 
 ## Update account
 > Example Request
@@ -1211,6 +1320,35 @@ account_id | string | Brokerage account to which to fund the money
 bank_account_id | string | Bank account from which to debit the money
 amount | double | The deposit amount
 
+## Retrieve deposit
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/deposits/62936e70-1815-439b-bf89-8492855a7e6b \
+ -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+  "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+  "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "amount": "202.00",
+  "created_at": 1497305164671,
+  "completed_at": 1497305164671,
+  "status": "complete"
+}
+```
+
+Retrieve a ACH deposit transaction.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/deposits/{id}`
+
 # Withdrawals
 
 ## Create deposit
@@ -1255,6 +1393,35 @@ amount | double | The withdrawal amount.
 <aside class="information">
 For an invested account, this will trigger sales of some equity to fulfill the requested withdrawal amount. In a highly volatile market, if the requested amount is more than 90% of the total account balance, the withdrawal amount could be lower than the requested amount. It can take **3-5 business days** for the funds to be available in the bank account.
 </aside>
+
+## Retrieve withdrawal
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/withdrawal/62936e70-1815-439b-bf89-8492855a7e6b \
+ -H "Bearer: sk_yourapikey" \
+```
+
+> Example Response
+
+```json
+{
+  "id": "62936e70-1815-439b-bf89-8492855a7e6b",
+  "account_id": "2d931510-d99f-494a-8c67-87feb05e1594",
+  "bank_account_id": "bad85eb9-0713-4da7-8d36-07a8e4b00eab",
+  "amount": "202.00",
+  "created_at": 1497305164671,
+  "completed_at": 1497305164671,
+  "status": "complete"
+}
+```
+
+Retrieve a ACH deposit transaction.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/deposits/{id}`
 
 # Orders
 
@@ -2048,6 +2215,10 @@ curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621
   "url": "signed-url"
 }
 ```
+
+<aside class="information">
+<code>url</code> is the uri of the statement in **PDF format** that can be displayed on any web or mobile app.
+</aside>
 
 ### HTTP Request
 
