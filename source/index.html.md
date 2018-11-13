@@ -175,11 +175,161 @@ X-Request-Signature | A SHA1 HMAC hexdigest computed with your API key and the r
 
 ## Create webhook
 
-## Retrieve webhook
+> Example Request
+
+```shell
+curl -X POST https://api.finos.com/v1/webhooks/ \
+ -H "Bearer: sk_yourapikey" \
+ -H "Content-Type: application/json" \
+ -d $'{
+   "name": "My_Webhook_Name",
+   "config": {
+     "url": "https://example.com/finos-webhook",
+     "basic_auth_username": "finos_user",
+     "basic_auth_password": "finos_passwd"
+   },
+   "events": ["usertransition.*"]
+ }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "6fe54303-10ce-42b5-a4b0-38bc19cf5025",
+  "name": "My_Webhook_Name",
+  "active": true,
+  "config": {
+    "url": "https://example.com/finos-webhook",
+    "basic_auth_username": "finos_user",
+    "basic_auth_password": "finos_passwd"
+  },
+  "events": [
+    "usertransition.*"
+  ]
+}
+```
+
+Use this endpoint to create a webhook. A webhook is a configuration object that let's you configure the types of event notifications that are sent, the location to where they are sent (the URL of your webhook endpoint), and credentials for accessing the webhook endpoint.
+
+### HTTP Request
+
+`POST https://api.finos.com/v1/webhooks/`
+
+**ARGUMENTS**
+
+Parameter | Type | Description
+--------- | ---- | ---------
+`name` *required* | string | Descriptive name of the webhook. Max 64 characters.
+`config` *required* | object | Webhook configuration with parameters `url`, `basic_auth_username`, `basic_auth_password` both optional but recommended.
+`events` *required* | array | Specifies the types of events for which notifications are sent. Defaults to `*` - all event types.
+
+## Retrieve a webhook
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
+ -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "id": "6fe54303-10ce-42b5-a4b0-38bc19cf5025",
+  "name": "My_Webhook_Name",
+  "active": true,
+  "config": {
+    "url": "https://example.com/finos-webhook",
+    "basic_auth_username": "finos_user",
+    "basic_auth_password": "finos_passwd"
+  },
+  "events": [
+    "usertransition.*"
+  ]
+}
+```
+
+Retrieve a specific webhook.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/webhooks/{id}`
 
 ## Update webhook
 
+> Example Request
+
+```shell
+curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 /
+  -H "Bearer: sk_yourapikey" \
+  -H "Content-Type: application/json" \
+  -d $'{
+    "active": false,
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "6fe54303-10ce-42b5-a4b0-38bc19cf5025",
+  "name": "My_Webhook_Name",
+  "active": false,
+  "config": {
+    "url": "https://example.com/finos-webhook",
+    "basic_auth_username": "finos_user",
+    "basic_auth_password": "finos_passwd"
+  },
+  "events": [
+    "usertransition.*"
+  ]
+}
+```
+
+This endpoint enables you to update a webhook.
+
+### HTTP Request
+
+`PUT https://api.finos.com/v1/webhooks/{id}`
+
 ## List webhooks
+
+> Example Request
+
+```shell
+curl -X GET https://api.finos.com/v1/webhooks/?limit=3 \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "pagination": {
+    "ending_before": null,
+    "starting_after": null,
+    "limit": 3,
+    "order": "desc",
+    "previous_uri": null,
+    "next_uri": "https://api.finos.com/v1/webhooks?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+  },
+  "data": [
+    { ... },
+    { ... },
+    {
+      "id": "58542935-67b5-56e1-a3f9-42686e07fa40",
+      ...
+    },
+  ]
+}
+```
+You can see a list of all webhooks for your account.
+
+### HTTP Request
+
+`GET https://api.finos.com/v1/webhooks`
 
 # Pagination
 
@@ -253,11 +403,11 @@ curl -X POST https://api.finos.com/v1/users \
 }
 ```
 
+This endpoint enables you to create a user. It will automatically perform the Know Your Customer (KYC) checks if the complete address and ssn_number is passed in the user create request.
+
 ### HTTP Request
 
 `POST https://api.finos.com/v1/users`
-
-This endpoint enables you to create a user. It will automatically perform the Know Your Customer (KYC) checks if the complete address and ssn_number is passed in the user create request.
 
 **ARGUMENTS**
 
@@ -318,11 +468,11 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 
 }
 ```
 
+This endpoint enables you to retrieve a specific user.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/users/{id}`
-
-This endpoint enables you to retrieve a specific user.
 
 ## Update user
 > Example Request
@@ -773,11 +923,11 @@ curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e15
 }
 ```
 
+This endpoint enables you to retrieve a specific account.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/accounts/{id}`
-
-This endpoint enables you to retrieve a specific account.
 
 ## Update account
 > Example Request
@@ -810,11 +960,11 @@ curl -X PUT https://api.finos.com/v1/accounts/{id} /
 }
 ```
 
+This endpoint enables you to update an account. For any updates to the user profile information, use the users resource update method. You can change an active account from single to joint by passing required `joint_member` object in the request. You can also convert a `cash` account to an `investment` by passing the required fields for converting it to an investment account or vice versa.
+
 ### HTTP Request
 
 `PUT https://api.finos.com/v1/accounts/{id}`
-
-This endpoint enables you to update an account. For any updates to the user profile information, use the users resource update method. You can change an active account from single to joint by passing required `joint_member` object in the request. You can also convert a `cash` account to an `investment` by passing the required fields for converting it to an investment account or vice versa.
 
 ## List accounts
 
@@ -919,11 +1069,11 @@ curl -X GET https://api.finos.com/v1/bank_accounts/bad85eb9-0713-4da7-8d36-07a8e
 }
 ```
 
+This endpoint enables you to retrieve a specific user bank account.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/bank_accounts/{id}`
-
-This endpoint enables you to retrieve a specific user bank account.
 
 ## Update bank account
 
@@ -1014,17 +1164,15 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/
 }
 ```
 
+You can see a list of the bank accounts belonging to a user.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/users/6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts/`
 
-You can see a list of the bank accounts belonging to a user.
-
 # Deposits
 
 ## Create deposit
-
-Create one-time ACH deposit with a linked bank account. Funds can be made instantly available depending upon your business account balance and your account configs. You can choose to defer the investments of the newly funds unless the funds have settled in T+1 days.
 
 > Example Request
 
@@ -1049,6 +1197,8 @@ curl -X POST https://api.finos.com/v1/deposits \
 }
 ```
 
+Create one-time ACH deposit with a linked bank account. Funds can be made instantly available depending upon your business account balance and your account configs. You can choose to defer the investments of the newly funds unless the funds have settled in T+1 days.
+
 ### HTTP Request
 
 `POST https://api.finos.com/v1/deposits/`
@@ -1064,8 +1214,6 @@ amount | double | The deposit amount
 # Withdrawals
 
 ## Create deposit
-
-Create one-time ACH withdrawal from brokerage account to a linked bank account.
 
 > Example Request
 
@@ -1089,6 +1237,8 @@ curl -X POST https://api.finos.com/v1/withdrawal \
   "status": "pending"
 }
 ```
+
+Create one-time ACH withdrawal from brokerage account to a linked bank account.
 
 ### HTTP Request
 
@@ -1242,11 +1392,11 @@ curl -X GET https://api.finos.com/v1/orders/904837e3-3b76-47ec-b432-046db621571b
 }
 ```
 
+This endpoint enables you to retrieve a specific order.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/orders/{id}`
-
-This endpoint enables you to retrieve a specific order.
 
 ## Cancel order
 
@@ -1304,11 +1454,11 @@ curl -X GET https://api.finos.com/v1/orders?limit=10 \
 }
 ```
 
+Retrieves a list of orders for your account.
+
 ### HTTP Request
 
 `GET https://api.finos.com/v1/orders`
-
-Retrieves a list of orders for your account.
 
 <aside class="information">
 <code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
