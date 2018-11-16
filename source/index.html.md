@@ -879,14 +879,14 @@ Parameter | Description
 `employment_status` *required* | Employment Status. Options `employed / self-employed`, `retired`, `student`, `not employed`
 `employment_position` *required* | Occupation e.g. "Software Engineer",
 `employer_name` *required* | Employer's name
-`annual_income` *optional for `cash` accounts* | Annual income. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
-`investment_objective`*optional for `cash` accounts* | Investment objectives. Options `capital preservation`, `growth`, `income`, `speculation`
-`investment_experience` *optional for `cash` accounts* | Investment experience. Options `none`, `limited`, `good`, `extensive`
-`net_liquid_worth` *optional for `cash` accounts* | Liquid net worth. Options `$0 - $4,999`, `$5,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
-`net_total_worth` options for `cash` accounts | Total net worth. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
-`is_director` *optional for `cash` accounts* | Is the account holder(s) a control person of a publicly traded company? A Director, Officer or 10% stock owner?
-`director_of` *optional for `cash` accounts* | If director, please list the company name and its ticker symbol.
-`risk_tolerance` *optional for `cash` accounts* | Risk tolerance. Options `conservative`, `moderate`, `aggressive`
+`annual_income` *optional for `cash` or `managed` accounts* | Annual income. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`investment_objective` *optional for `cash` or `managed` accounts* | Investment objectives. Options `capital preservation`, `growth`, `income`, `speculation`
+`investment_experience` *optional for `cash` or `managed` accounts* | Investment experience. Options `none`, `limited`, `good`, `extensive`
+`net_liquid_worth` *optional for `cash` or `managed` accounts* | Liquid net worth. Options `$0 - $4,999`, `$5,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`net_total_worth` *optional for `cash` or `managed` accounts* | Total net worth. Options `$0 - $24,999`, `$25,000 - $99,999`, `$100,000 - $199,999`, `$200,000+`
+`risk_tolerance` *optional for `cash` or `managed` accounts* | Risk tolerance. Options `conservative`, `moderate`, `aggressive`
+`is_director` | Is the account holder(s) a control person of a publicly traded company? A Director, Officer or 10% stock owner?
+`director_of` | If director, please list the company name and its ticker symbol.
 
 <aside class="information">
 For <code>joint</code> accounts optionally include the <code>joint_member</code> object in the request body as shown in the sample code.
