@@ -46,7 +46,7 @@ The Finos API is organized around [REST](http://en.wikipedia.org/wiki/Representa
 
 We also have some specific language bindings to make integration easier. You can switch the programming language of the examples with the tabs in the top right.
 
-Currently we support the following official client bindings:
+Currently we plan to support the following official client bindings:
 
 * **Go**
 * **Node**
