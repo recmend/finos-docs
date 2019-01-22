@@ -15,7 +15,7 @@ toc_footers:
 # Introduction
 
 ```shell
-https://api.finos.com
+https://api.joinfinos.com
 ```
 
 ```go
@@ -81,7 +81,7 @@ finos.Account.fetch("account_id")
 ```
 
 ```shell
-$ curl https://api.finos.com/accounts \
+$ curl https://api.joinfinos.com/accounts \
   -H "Authorization: your_api_key"
 ```
 
@@ -178,7 +178,7 @@ X-Request-Signature | A SHA1 HMAC hexdigest computed with your API key and the r
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/webhooks/ \
+curl -X POST https://api.joinfinos.com/v1/webhooks/ \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -214,7 +214,7 @@ Use this endpoint to create a webhook. A webhook is a configuration object that 
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/webhooks/`
+`POST https://api.joinfinos.com/v1/webhooks/`
 
 **ARGUMENTS**
 
@@ -229,7 +229,7 @@ Parameter | Type | Description
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
+curl -X GET https://api.joinfinos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
  -H "Bearer: sk_yourapikey"
 ```
 
@@ -255,14 +255,14 @@ Retrieve a specific webhook.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/webhooks/{id}`
+`GET https://api.joinfinos.com/v1/webhooks/{id}`
 
 ## Update webhook
 
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
+curl -X PUT https://api.joinfinos.com/v1/webhooks/6fe54303-10ce-42b5-a4b0-38bc19cf5025 \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -292,14 +292,14 @@ This endpoint enables you to update a webhook.
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/webhooks/{id}`
+`PUT https://api.joinfinos.com/v1/webhooks/{id}`
 
 ## List webhooks
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/webhooks/?limit=3 \
+curl -X GET https://api.joinfinos.com/v1/webhooks/?limit=3 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -313,7 +313,7 @@ curl -X GET https://api.finos.com/v1/webhooks/?limit=3 \
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/webhooks?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+    "next_uri": "https://api.joinfinos.com/v1/webhooks?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
   },
   "data": [
     { ... },
@@ -329,7 +329,7 @@ You can see a list of all webhooks for your account.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/webhooks`
+`GET https://api.joinfinos.com/v1/webhooks`
 
 # Pagination
 
@@ -375,7 +375,7 @@ This resource stores user attributes such as name, address, and date of birth, a
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/users \
+curl -X POST https://api.joinfinos.com/v1/users \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -407,7 +407,7 @@ This endpoint enables you to create a user. It will automatically perform the Kn
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/users`
+`POST https://api.joinfinos.com/v1/users`
 
 **ARGUMENTS**
 
@@ -444,7 +444,7 @@ For <code>action_required</code> status use KYC Patch request for automated veri
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 \
+curl -X GET https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025 \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -472,13 +472,13 @@ This endpoint enables you to retrieve a specific user.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/users/{id}`
+`GET https://api.joinfinos.com/v1/users/{id}`
 
 ## Update user
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/users/{id} \
+curl -X PUT https://api.joinfinos.com/v1/users/{id} \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -508,7 +508,7 @@ curl -X PUT https://api.finos.com/v1/users/{id} \
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/users/{used_id}`
+`PUT https://api.joinfinos.com/v1/users/{used_id}`
 
 **ARGUMENTS**
 
@@ -531,7 +531,7 @@ Parameter | Type | Required
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users?limit=3 \
+curl -X GET https://api.joinfinos.com/v1/users?limit=3 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -545,7 +545,7 @@ curl -X GET https://api.finos.com/v1/users?limit=3 \
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/users?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+    "next_uri": "https://api.joinfinos.com/v1/users?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
   },
   "data": [
     { ... },
@@ -560,7 +560,7 @@ curl -X GET https://api.finos.com/v1/users?limit=3 \
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/users`
+`GET https://api.joinfinos.com/v1/users`
 
 # KYC Verification
 Finos requires account holders to pass an identity verification process before accounts are active. This identity verification process is known as KYC (know your customer).
@@ -570,7 +570,7 @@ Finos requires account holders to pass an identity verification process before a
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/kyc \
+curl -X POST https://api.joinfinos.com/v1/kyc \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -679,7 +679,7 @@ curl -X POST https://api.finos.com/v1/kyc \
 >
 
 ```shell
-curl -X PATCH https://api.finos.com/v1/kyc/S-eJ38yUNDqcMxKwwdxbya \
+curl -X PATCH https://api.joinfinos.com/v1/kyc/S-eJ38yUNDqcMxKwwdxbya \
     -H "Bearer: sk_yourapikey" \
     -H "Content-Type: application/json" \
     -d $'{"answers":[
@@ -698,7 +698,7 @@ Use this endpoint to verify the identity of an account holder. If we are able to
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/kyc`
+`POST https://api.joinfinos.com/v1/kyc`
 
 **ARGUMENTS**
 
@@ -741,11 +741,11 @@ Use this endpoint to retrieve a specific KYC result.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/kyc/{token}`
+`GET https://api.joinfinos.com/v1/kyc/{token}`
 
 ## KYC Documents
 ```shell
-curl -X PUT GET https://api.finos.com/v1/kyc/{token}/documents \
+curl -X PUT GET https://api.joinfinos.com/v1/kyc/{token}/documents \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -784,7 +784,7 @@ Uploaded documents are not reviewed or approved in UAT. In Production, documents
 
 ### Upload a Document
 
-`POST https://api.finos.com/v1/kyc/{token}/documents`
+`POST https://api.joinfinos.com/v1/kyc/{token}/documents`
 
 **ARGUMENTS**
 
@@ -805,7 +805,7 @@ The accounts resource represents the brokerage accounts with which users conduct
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
+curl -X POST https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -829,7 +829,7 @@ curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025
 > For Joint accounts, change ownership to "joint"
 
 ```shell
-curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
+curl -X POST https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -866,7 +866,7 @@ curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
+`POST https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
 
 **ARGUMENTS**
 
@@ -897,7 +897,7 @@ For <code>joint</code> accounts optionally include the <code>joint_member</code>
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 \
+curl -X GET https://api.joinfinos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594 \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -929,7 +929,7 @@ This endpoint enables you to retrieve a specific account.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/accounts/{id}`
+`GET https://api.joinfinos.com/v1/accounts/{id}`
 
 ### Response
 
@@ -943,7 +943,7 @@ Key | Type | Description
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/positions \
+curl -X GET https://api.joinfinos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/positions \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -957,7 +957,7 @@ curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e15
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/acccounts/{id}/positions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+    "next_uri": "https://api.joinfinos.com/v1/acccounts/{id}/positions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
   },
   "data": [
     { ... },
@@ -983,14 +983,14 @@ Retrieves the account’s open position.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/accounts/{account_id}/positions`
+`GET https://api.joinfinos.com/v1/accounts/{account_id}/positions`
 
 ## List Transactions
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/transactions \
+curl -X GET https://api.joinfinos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/transactions \
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -1004,7 +1004,7 @@ curl -X GET https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e15
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/acccounts/{account_id}/transactions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+    "next_uri": "https://api.joinfinos.com/v1/acccounts/{account_id}/transactions?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
   },
   "data": [
     { ... },
@@ -1029,7 +1029,7 @@ Retrieves the account’s transactions including deposits, withdrawal and trade 
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/accounts/{account_id}/transactions`
+`GET https://api.joinfinos.com/v1/accounts/{account_id}/transactions`
 
 ### Response
 
@@ -1042,7 +1042,7 @@ Key | Type | Description
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/accounts/{id} \
+curl -X PUT https://api.joinfinos.com/v1/accounts/{id} \
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -1073,14 +1073,14 @@ This endpoint enables you to update an account. For any updates to the user prof
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/accounts/{id}`
+`PUT https://api.joinfinos.com/v1/accounts/{id}`
 
 ## List accounts
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts?limit=3 \
+curl -X GET https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts?limit=3 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1094,7 +1094,7 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/acccounts?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
+    "next_uri": "https://api.joinfinos.com/v1/acccounts?limit=3&starting_after=58542935-67b5-56e1-a3f9-42686e07fa40"
   },
   "data": [
     { ... },
@@ -1110,7 +1110,7 @@ You can see a list of the brokerage accounts belonging to a user.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
+`GET https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/accounts`
 
 # Bank Accounts
 
@@ -1121,7 +1121,7 @@ The bank account resource is used to connect user's external bank accounts with 
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts \
+curl -X POST https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -1146,7 +1146,7 @@ curl -X POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts`
+`POST https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts`
 
 **ARGUMENTS**
 
@@ -1161,7 +1161,7 @@ Parameter | Description
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/bank_accounts/bad85eb9-0713-4da7-8d36-07a8e4b00eab /
+curl -X GET https://api.joinfinos.com/v1/bank_accounts/bad85eb9-0713-4da7-8d36-07a8e4b00eab /
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -1182,14 +1182,14 @@ This endpoint enables you to retrieve a specific user bank account.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/bank_accounts/{id}`
+`GET https://api.joinfinos.com/v1/bank_accounts/{id}`
 
 ## Update bank account
 
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/bank_accounts/{id} /
+curl -X PUT https://api.joinfinos.com/v1/bank_accounts/{id} /
   -H "Bearer: sk_yourapikey" \
   -H "Content-Type: application/json" \
   -d $'{
@@ -1211,7 +1211,7 @@ curl -X PUT https://api.finos.com/v1/bank_accounts/{id} /
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/bank_accounts/{id}`
+`PUT https://api.joinfinos.com/v1/bank_accounts/{id}`
 
 Parameter | Description
 --------- | -----------
@@ -1223,7 +1223,7 @@ Parameter | Description
 > Example Request
 
 ```shell
-curl -X DELETE https://api.finos.com/v1/bank_accounts/{id} /
+curl -X DELETE https://api.joinfinos.com/v1/bank_accounts/{id} /
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1239,14 +1239,14 @@ curl -X DELETE https://api.finos.com/v1/bank_accounts/{id} /
 
 ### HTTP Request
 
-`DELETE https://api.finos.com/v1/bank_accounts/{id}`
+`DELETE https://api.joinfinos.com/v1/bank_accounts/{id}`
 
 ## List bank accounts
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3 \
+curl -X GET https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1260,7 +1260,7 @@ curl -X GET https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/
     "limit": 3,
     "order": "desc",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3&starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"
+    "next_uri": "https://api.joinfinos.com/v1/users/f6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts?limit=3&starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"
   },
   "data": [
     { ... },
@@ -1277,7 +1277,7 @@ You can see a list of the bank accounts belonging to a user.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/users/6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts/`
+`GET https://api.joinfinos.com/v1/users/6e54303-10ce-42b5-a4b0-b28c19cf5025/bank_accounts/`
 
 # Deposits
 
@@ -1286,7 +1286,7 @@ You can see a list of the bank accounts belonging to a user.
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/deposits \
+curl -X POST https://api.joinfinos.com/v1/deposits \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -1310,7 +1310,7 @@ Create one-time ACH deposit with a linked bank account. Funds can be made instan
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/deposits/`
+`POST https://api.joinfinos.com/v1/deposits/`
 
 **ARGUMENTS**
 
@@ -1325,7 +1325,7 @@ amount | double | The deposit amount
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/deposits/62936e70-1815-439b-bf89-8492855a7e6b \
+curl -X GET https://api.joinfinos.com/v1/deposits/62936e70-1815-439b-bf89-8492855a7e6b \
  -H "Bearer: sk_yourapikey" \
 ```
 
@@ -1347,7 +1347,7 @@ Retrieve a ACH deposit transaction.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/deposits/{id}`
+`GET https://api.joinfinos.com/v1/deposits/{id}`
 
 # Withdrawals
 
@@ -1356,7 +1356,7 @@ Retrieve a ACH deposit transaction.
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/withdrawal \
+curl -X POST https://api.joinfinos.com/v1/withdrawal \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -1380,7 +1380,7 @@ Create one-time ACH withdrawal from brokerage account to a linked bank account.
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/withdrawal/`
+`POST https://api.joinfinos.com/v1/withdrawal/`
 
 **ARGUMENTS**
 
@@ -1399,7 +1399,7 @@ For an invested account, this will trigger sales of some equity to fulfill the r
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/withdrawal/62936e70-1815-439b-bf89-8492855a7e6b \
+curl -X GET https://api.joinfinos.com/v1/withdrawal/62936e70-1815-439b-bf89-8492855a7e6b \
  -H "Bearer: sk_yourapikey" \
 ```
 
@@ -1421,7 +1421,7 @@ Retrieve a ACH deposit transaction.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/deposits/{id}`
+`GET https://api.joinfinos.com/v1/deposits/{id}`
 
 # Orders
 
@@ -1481,7 +1481,7 @@ Order API currently accepts orders only while the market is open. Out of the reg
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/orders/ \
+curl -X POST https://api.joinfinos.com/v1/orders/ \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -1512,7 +1512,7 @@ curl -X POST https://api.finos.com/v1/orders/ \
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/orders`
+`POST https://api.joinfinos.com/v1/orders`
 
 **ARGUMENTS**
 
@@ -1530,7 +1530,7 @@ Parameter | Type | Description
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/orders/904837e3-3b76-47ec-b432-046db621571b /
+curl -X GET https://api.joinfinos.com/v1/orders/904837e3-3b76-47ec-b432-046db621571b /
   -H "Bearer: sk_yourapikey" \
 ```
 
@@ -1563,14 +1563,14 @@ This endpoint enables you to retrieve a specific order.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/orders/{id}`
+`GET https://api.joinfinos.com/v1/orders/{id}`
 
 ## Cancel order
 
 > Example Request
 
 ```shell
-curl -X DELETE https://api.finos.com/v1/orders/{id} /
+curl -X DELETE https://api.joinfinos.com/v1/orders/{id} /
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1586,14 +1586,14 @@ curl -X DELETE https://api.finos.com/v1/orders/{id} /
 
 ### HTTP Request
 
-`DELETE https://api.finos.com/v1/orders/{id}`
+`DELETE https://api.joinfinos.com/v1/orders/{id}`
 
 ## List orders
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/orders?limit=10 \
+curl -X GET https://api.joinfinos.com/v1/orders?limit=10 \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1608,7 +1608,7 @@ curl -X GET https://api.finos.com/v1/orders?limit=10 \
     "order": "desc",
     "status": "open",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/orders?limit=3&starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"
+    "next_uri": "https://api.joinfinos.com/v1/orders?limit=3&starting_after=bad85eb9-0713-4da7-8d36-07a8e4b00eab"
   },
   "data": [
     { ... },
@@ -1625,7 +1625,7 @@ Retrieves a list of orders for your account.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/orders`
+`GET https://api.joinfinos.com/v1/orders`
 
 <aside class="information">
 <code>status</code> is order status query parameter. <code>open</code>, <code>closed</code> or <code>all</code>. Defaults to <code>open</code>.
@@ -1639,7 +1639,7 @@ Market Data provided by [IEX](https://iextrading.com/developer)
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/stocks/AAPL \
+curl -X GET https://api.joinfinos.com/v1/stocks/AAPL \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1692,7 +1692,7 @@ curl -X GET https://api.finos.com/v1/stocks/AAPL \
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/stocks/{symbol}`
+`GET https://api.joinfinos.com/v1/stocks/{symbol}`
 
 ### Response
 
@@ -1743,7 +1743,7 @@ Parameter | Type | Description
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/stocks/AAPL/chart/1m \
+curl -X GET https://api.joinfinos.com/v1/stocks/AAPL/chart/1m \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1861,7 +1861,7 @@ Key | Type | Availability
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/stocks/AAPL/stats \
+curl -X GET https://api.joinfinos.com/v1/stocks/AAPL/stats \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -1957,7 +1957,7 @@ Finos offers complete suite of fully automated investment management APIs that m
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings \
+curl -X PUT https://api.joinfinos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -1982,7 +1982,7 @@ Configure account settings for investment management.
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings`
+`PUT https://api.joinfinos.com/v1/accounts/2d931510-d99f-494a-8c67-87feb05e1594/settings`
 
 **AGRUMENTS**
 
@@ -2016,7 +2016,7 @@ Our default investment methodology employs five steps:
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/asset_classes/ \
+curl -X POST https://api.joinfinos.com/v1/asset_classes/ \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -2042,7 +2042,7 @@ Create an asset class type
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/asset_classes/`
+`PUT https://api.joinfinos.com/v1/asset_classes/`
 
 The following table list our default asset class compositions.
 
@@ -2067,7 +2067,7 @@ Secondary ETFs are primarily used for tax-loss harvesting benefits for taxable m
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/asset_classes/us-equity \
+curl -X PUT https://api.joinfinos.com/v1/asset_classes/us-equity \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -2092,14 +2092,14 @@ Update an asset class compositions.
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/asset_classes/us-equity`
+`PUT https://api.joinfinos.com/v1/asset_classes/us-equity`
 
 ## Create portfolio
 
 > Example Request
 
 ```shell
-curl -X POST https://api.finos.com/v1/portfolios/ \
+curl -X POST https://api.joinfinos.com/v1/portfolios/ \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -2142,7 +2142,7 @@ Create a portfolio.
 
 ### HTTP Request
 
-`POST https://api.finos.com/v1/portfolios/`
+`POST https://api.joinfinos.com/v1/portfolios/`
 
 <aside class="information">
 weights must sum to 100
@@ -2153,7 +2153,7 @@ weights must sum to 100
 > Example Request
 
 ```shell
-curl -X PUT https://api.finos.com/v1/portfolios/ \
+curl -X PUT https://api.joinfinos.com/v1/portfolios/ \
  -H "Bearer: sk_yourapikey" \
  -H "Content-Type: application/json" \
  -d $'{
@@ -2194,7 +2194,7 @@ Update a portfolio composition.
 
 ### HTTP Request
 
-`PUT https://api.finos.com/v1/portfolios/`
+`PUT https://api.joinfinos.com/v1/portfolios/`
 
 # Statements
 
@@ -2203,7 +2203,7 @@ Update a portfolio composition.
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b \
+curl -X GET https://api.joinfinos.com/v1/statements/904837e3-3b76-47ec-b432-046db621571b \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -2222,14 +2222,14 @@ curl -X GET https://api.finos.com/v1/statements/904837e3-3b76-47ec-b432-046db621
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/statements/{id}`
+`GET https://api.joinfinos.com/v1/statements/{id}`
 
 ## List statements
 
 > Example Request
 
 ```shell
-curl -X GET https://api.finos.com/v1/statements?account_id=904837e3-3b76-47ec-b432-046db621571b \
+curl -X GET https://api.joinfinos.com/v1/statements?account_id=904837e3-3b76-47ec-b432-046db621571b \
   -H "Bearer: sk_yourapikey"
 ```
 
@@ -2245,7 +2245,7 @@ curl -X GET https://api.finos.com/v1/statements?account_id=904837e3-3b76-47ec-b4
     "start_date": "2018-06-01T00:00:00Z",
     "end_date": "2018-06-01T00:00:00Z",
     "previous_uri": null,
-    "next_uri": "https://api.finos.com/v1/statements?account_id=&904837e3-3b76-47ec-b432-046db621571b"
+    "next_uri": "https://api.joinfinos.com/v1/statements?account_id=&904837e3-3b76-47ec-b432-046db621571b"
   },
   "data": [
     { ... },
@@ -2261,7 +2261,7 @@ Retrieves a list of statements for an account.
 
 ### HTTP Request
 
-`GET https://api.finos.com/v1/statements?account_id={id}&start_date={datetime}`
+`GET https://api.joinfinos.com/v1/statements?account_id={id}&start_date={datetime}`
 
 **ARGUMENTS**
 
