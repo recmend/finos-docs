@@ -434,9 +434,6 @@
                   <li>
                     <a href="#retrieve-a-rollover" class="toc-h2 toc-link" data-title="Retrieve a rollover">Retrieve a rollover</a>
                   </li>
-                  <li>
-                    <a href="#update-a-rollover" class="toc-h2 toc-link" data-title="Update a rollover">Update a rollover</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -3264,7 +3261,11 @@ weights must sum to 100
 <p>Update a portfolio composition.</p>
 <h3 id='http-request-37'>HTTP Request</h3>
 <p><code>PUT https://api.joinfinos.com/v1/portfolios/</code></p>
-<h1 id='rollovers'>Rollovers</h1><h2 id='create-rollover'>Create rollover</h2>
+<h1 id='rollovers'>Rollovers</h1>
+<p>A full account ACATS transfer typically takes 4-5 business days from initiation to settlement. On a successful request, we will submit a transfer initiation (TI) record to the ACATS system, containing information about the client’s accounts at the receiving and delivering firms. This TI record is distributed by ACATS to both the delivering and the receiving brokerage firms (Finos). The transfer usually settles 2-3 days after it has been confirmed by the delivering firm, at which point the client’s assets have been successfully transferred. Partial account ACATS transfers follow a similar lifecycle, with the primary difference being that the receiving firm also must submit AT records along with the initial TI record in order to request only specific assets from the client’s account at the contra firm.</p>
+
+<p><img src="images/ACATS.png" alt="alt &quot;ACATS&quot;" /></p>
+<h2 id='create-rollover'>Create rollover</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
@@ -3379,7 +3380,23 @@ weights must sum to 100
 <td>A list of assets to be rolled over.</td>
 </tr>
 </tbody></table>
-<h2 id='retrieve-a-rollover'>Retrieve a rollover</h2><h2 id='update-a-rollover'>Update a rollover</h2><h1 id='statements'>Statements</h1><h2 id='retrieve-a-statement'>Retrieve a statement</h2>
+<h2 id='retrieve-a-rollover'>Retrieve a rollover</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://api.joinfinos.com/v1/rollovers/92636e70-1815-439b-bf89-8492855a7e6b <span class="se">\</span>
+  -H <span class="s2">"Bearer: sk_yourapikey"</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"92636e70-1815-439b-bf89-8492855a7e6bb"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-39'>HTTP Request</h3>
+<p><code>GET https://api.joinfinos.com/v1/rollovers/{id}</code></p>
+<h1 id='statements'>Statements</h1><h2 id='retrieve-a-statement'>Retrieve a statement</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
@@ -3397,7 +3414,7 @@ weights must sum to 100
 <aside class="information">
 <code>url</code> is the uri of the statement in **PDF format** that can be displayed on any web or mobile app.
 </aside>
-<h3 id='http-request-39'>HTTP Request</h3>
+<h3 id='http-request-40'>HTTP Request</h3>
 <p><code>GET https://api.joinfinos.com/v1/statements/{id}</code></p>
 <h2 id='list-statements'>List statements</h2>
 <blockquote>
@@ -3431,7 +3448,7 @@ weights must sum to 100
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Retrieves a list of statements for an account.</p>
-<h3 id='http-request-40'>HTTP Request</h3>
+<h3 id='http-request-41'>HTTP Request</h3>
 <p><code>GET https://api.joinfinos.com/v1/statements?account_id={id}&amp;start_date={datetime}</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
