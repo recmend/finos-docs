@@ -2196,6 +2196,83 @@ Update a portfolio composition.
 
 `PUT https://api.joinfinos.com/v1/portfolios/`
 
+# Rollovers
+
+## Create rollover
+
+> Example Request
+
+```shell
+curl -X POST https://api.joinfinos.com/v1/rollovers/ \
+ -H "Bearer: sk_yourapikey" \
+ -H "Content-Type: application/json" \
+ -d $'{
+    "ira_account_id": "XBN34731",
+    "direction": "in",
+    "extent": "partial",
+    "indirect": false,
+    "processing_method": "ACATS",
+    "custodian": {
+      "name": "Rollover Custodian - 52TTK409",
+      "address": {
+        "street_address_1": "123 Main St",
+        "street_address_2": "Suite 300",
+        "city": "New York",
+        "zip_code": "10012",
+        "state": "NY",
+        "country": "USA"
+      },
+      "phone_numbers": [
+        {
+          "phone_type": "Work",
+          "phone": "+18885554545"
+        }
+      ]
+    },
+    "source_account_number": "RIA15678",
+    "source_account_type": "EST",
+    "source_account_inherited": false,
+    "cash_amount": 5000.0,
+  	"tax_year": 2018,
+    "description": "Rollover from external custodian, initiated by client", 
+    "assets": [
+      {
+        "asset_code": "VTI",
+        "CashAmount": 1000.00
+  		},
+      ...
+    ]
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "id": "92636e70-1815-439b-bf89-8492855a7e6b",
+  "status": "initiated"
+}
+```
+
+Create a rollover from one custodian to another.
+
+### HTTP Request
+
+`POST https://api.joinfinos.com/v1/rollovers/`
+
+Parameter | Type | Description
+--------- | ---- | -----------
+`ira_account_id` | string *required* | User's IRA account. You will need to create an IRA account before initiating a rollover. 
+`extent` | string *required* | Whether it's full rollover or partial. Valid values `full` or `partial`
+`custodian` | object *required* | Company details for the custodian that the account is being rolled over from.
+`source_account_number` | string *required* | Account number for the account being rolled over from.
+`source_account_type` | boolean *required* | 	*Valid values:* `TIA` - TraditionalIRA, `RIA` - Roth IRA, "`SEP`" - SEP IRA, "`SIM`" - SIMPLE IRA, "`ROI`" - Rollover IRA, "`STI`" - Spousal Traditional IRA, "`SRI`" - Spousal Roth IRA, "`CTI`" - Child Traditional IRA, "`CRI`" - Child Roth IRA, "`ITI`" - Inherited Traditional IRA, "`IRI`" - Inherited Roth IRA, "`CES`" - Coverdell Education Savings, "`SAR`" - Salary ReductionSimplified Employee Pension, "`PSP`" - Profit Sharing Plan, "`ESO`" - Employee Stock Ownership Plan, "`KEO`" - Keogh, "`EST`" - Traditional 401(k) (Employer Sponsored 401(k)), "`ESR`" - Roth 401(k) (Employer Sponsored Roth 401(k)), "`TSA`" - Traditional 403(b) (Tax-sheltered Annuity), "`DRT`" - Roth 403(b) (Designated Roth Account 403(b)), "`GVB`" - Traditional 457(b) (Governmental 457(b)), "`DRB`" - Roth 457(b) (Designated Roth Account 457(b)), `SKT` - Self Employed Traditional 401(k), "`SKR`" - Self Employed Roth 401(k), "`SKP`" - Self Employed Profit Sharing 401(k),"`STK`" - Spousal Traditional 401(k), "`SRK`" - Spousal Roth 401(k), "`RMA`" - Retirement Maximizer Account, "`IMA`" - Investment Maximizer Account, "`PFC`" - Private Fund Custody Account, "`PTA`" - Provider Trust Account
+`source_account_inherited` | string *required* | Whether the account being rolled over into is an inherited account
+`cash_amount`| decimal *optional* | Cash amount to rollover.
+`tax_year` | string *required* | 	Tax Year that rollover will be assigned to. This can be one year prior to the current year.
+`description` | string *required* | Description of the rollover.
+`assets` | object *required* | A list of assets to be rolled over.
+
 # Statements
 
 ## Retrieve a statement
