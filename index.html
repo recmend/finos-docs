@@ -426,6 +426,20 @@
               </ul>
           </li>
           <li>
+            <a href="#rollovers" class="toc-h1 toc-link" data-title="Rollovers">Rollovers</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-rollover" class="toc-h2 toc-link" data-title="Create rollover">Create rollover</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-a-rollover" class="toc-h2 toc-link" data-title="Retrieve a rollover">Retrieve a rollover</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-rollover" class="toc-h2 toc-link" data-title="Update a rollover">Update a rollover</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#statements" class="toc-h1 toc-link" data-title="Statements">Statements</a>
               <ul class="toc-list-h2">
                   <li>
@@ -3250,7 +3264,122 @@ weights must sum to 100
 <p>Update a portfolio composition.</p>
 <h3 id='http-request-37'>HTTP Request</h3>
 <p><code>PUT https://api.joinfinos.com/v1/portfolios/</code></p>
-<h1 id='statements'>Statements</h1><h2 id='retrieve-a-statement'>Retrieve a statement</h2>
+<h1 id='rollovers'>Rollovers</h1><h2 id='create-rollover'>Create rollover</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST https://api.joinfinos.com/v1/rollovers/ <span class="se">\</span>
+ -H <span class="s2">"Bearer: sk_yourapikey"</span> <span class="se">\</span>
+ -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+ -d <span class="s1">$'{
+    "ira_account_id": "XBN34731",
+    "direction": "in",
+    "extent": "partial",
+    "indirect": false,
+    "processing_method": "ACATS",
+    "custodian": {
+      "name": "Rollover Custodian - 52TTK409",
+      "address": {
+        "street_address_1": "123 Main St",
+        "street_address_2": "Suite 300",
+        "city": "New York",
+        "zip_code": "10012",
+        "state": "NY",
+        "country": "USA"
+      },
+      "phone_numbers": [
+        {
+          "phone_type": "Work",
+          "phone": "+18885554545"
+        }
+      ]
+    },
+    "source_account_number": "RIA15678",
+    "source_account_type": "EST",
+    "source_account_inherited": false,
+    "cash_amount": 5000.0,
+    "tax_year": 2018,
+    "description": "Rollover from external custodian, initiated by client", 
+    "assets": [
+      {
+        "asset_code": "VTI",
+        "CashAmount": 1000.00
+        },
+      ...
+    ]
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"92636e70-1815-439b-bf89-8492855a7e6b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"initiated"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Create a rollover from one custodian to another.</p>
+<h3 id='http-request-38'>HTTP Request</h3>
+<p><code>POST https://api.joinfinos.com/v1/rollovers/</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ira_account_id</code></td>
+<td>string <em>required</em></td>
+<td>User&#39;s IRA account. You will need to create an IRA account before initiating a rollover.</td>
+</tr>
+<tr>
+<td><code>extent</code></td>
+<td>string <em>required</em></td>
+<td>Whether it&#39;s full rollover or partial. Valid values <code>full</code> or <code>partial</code></td>
+</tr>
+<tr>
+<td><code>custodian</code></td>
+<td>object <em>required</em></td>
+<td>Company details for the custodian that the account is being rolled over from.</td>
+</tr>
+<tr>
+<td><code>source_account_number</code></td>
+<td>string <em>required</em></td>
+<td>Account number for the account being rolled over from.</td>
+</tr>
+<tr>
+<td><code>source_account_type</code></td>
+<td>boolean <em>required</em></td>
+<td><em>Valid values:</em> <code>TIA</code> - TraditionalIRA, <code>RIA</code> - Roth IRA, &quot;<code>SEP</code>&quot; - SEP IRA, &quot;<code>SIM</code>&quot; - SIMPLE IRA, &quot;<code>ROI</code>&quot; - Rollover IRA, &quot;<code>STI</code>&quot; - Spousal Traditional IRA, &quot;<code>SRI</code>&quot; - Spousal Roth IRA, &quot;<code>CTI</code>&quot; - Child Traditional IRA, &quot;<code>CRI</code>&quot; - Child Roth IRA, &quot;<code>ITI</code>&quot; - Inherited Traditional IRA, &quot;<code>IRI</code>&quot; - Inherited Roth IRA, &quot;<code>CES</code>&quot; - Coverdell Education Savings, &quot;<code>SAR</code>&quot; - Salary ReductionSimplified Employee Pension, &quot;<code>PSP</code>&quot; - Profit Sharing Plan, &quot;<code>ESO</code>&quot; - Employee Stock Ownership Plan, &quot;<code>KEO</code>&quot; - Keogh, &quot;<code>EST</code>&quot; - Traditional 401(k) (Employer Sponsored 401(k)), &quot;<code>ESR</code>&quot; - Roth 401(k) (Employer Sponsored Roth 401(k)), &quot;<code>TSA</code>&quot; - Traditional 403(b) (Tax-sheltered Annuity), &quot;<code>DRT</code>&quot; - Roth 403(b) (Designated Roth Account 403(b)), &quot;<code>GVB</code>&quot; - Traditional 457(b) (Governmental 457(b)), &quot;<code>DRB</code>&quot; - Roth 457(b) (Designated Roth Account 457(b)), <code>SKT</code> - Self Employed Traditional 401(k), &quot;<code>SKR</code>&quot; - Self Employed Roth 401(k), &quot;<code>SKP</code>&quot; - Self Employed Profit Sharing 401(k),&quot;<code>STK</code>&quot; - Spousal Traditional 401(k), &quot;<code>SRK</code>&quot; - Spousal Roth 401(k), &quot;<code>RMA</code>&quot; - Retirement Maximizer Account, &quot;<code>IMA</code>&quot; - Investment Maximizer Account, &quot;<code>PFC</code>&quot; - Private Fund Custody Account, &quot;<code>PTA</code>&quot; - Provider Trust Account</td>
+</tr>
+<tr>
+<td><code>source_account_inherited</code></td>
+<td>string <em>required</em></td>
+<td>Whether the account being rolled over into is an inherited account</td>
+</tr>
+<tr>
+<td><code>cash_amount</code></td>
+<td>decimal <em>optional</em></td>
+<td>Cash amount to rollover.</td>
+</tr>
+<tr>
+<td><code>tax_year</code></td>
+<td>string <em>required</em></td>
+<td>Tax Year that rollover will be assigned to. This can be one year prior to the current year.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string <em>required</em></td>
+<td>Description of the rollover.</td>
+</tr>
+<tr>
+<td><code>assets</code></td>
+<td>object <em>required</em></td>
+<td>A list of assets to be rolled over.</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-a-rollover'>Retrieve a rollover</h2><h2 id='update-a-rollover'>Update a rollover</h2><h1 id='statements'>Statements</h1><h2 id='retrieve-a-statement'>Retrieve a statement</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
@@ -3268,7 +3397,7 @@ weights must sum to 100
 <aside class="information">
 <code>url</code> is the uri of the statement in **PDF format** that can be displayed on any web or mobile app.
 </aside>
-<h3 id='http-request-38'>HTTP Request</h3>
+<h3 id='http-request-39'>HTTP Request</h3>
 <p><code>GET https://api.joinfinos.com/v1/statements/{id}</code></p>
 <h2 id='list-statements'>List statements</h2>
 <blockquote>
@@ -3302,7 +3431,7 @@ weights must sum to 100
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Retrieves a list of statements for an account.</p>
-<h3 id='http-request-39'>HTTP Request</h3>
+<h3 id='http-request-40'>HTTP Request</h3>
 <p><code>GET https://api.joinfinos.com/v1/statements?account_id={id}&amp;start_date={datetime}</code></p>
 
 <p><strong>ARGUMENTS</strong></p>
