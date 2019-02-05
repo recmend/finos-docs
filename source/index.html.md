@@ -2198,6 +2198,10 @@ Update a portfolio composition.
 
 # Rollovers
 
+A full account ACATS transfer typically takes 4-5 business days from initiation to settlement. On a successful request, we will submit a transfer initiation (TI) record to the ACATS system, containing information about the client’s accounts at the receiving and delivering firms. This TI record is distributed by ACATS to both the delivering and the receiving brokerage firms (Finos). The transfer usually settles 2-3 days after it has been confirmed by the delivering firm, at which point the client’s assets have been successfully transferred. Partial account ACATS transfers follow a similar lifecycle, with the primary difference being that the receiving firm also must submit AT records along with the initial TI record in order to request only specific assets from the client’s account at the contra firm.
+
+![alt "ACATS"](/images/ACATS.png)
+
 ## Create rollover
 
 > Example Request
@@ -2275,7 +2279,25 @@ Parameter | Type | Description
 
 ## Retrieve a rollover
 
-## Update a rollover
+> Example Request
+
+```shell
+curl -X GET https://api.joinfinos.com/v1/rollovers/92636e70-1815-439b-bf89-8492855a7e6b \
+  -H "Bearer: sk_yourapikey"
+```
+
+> Example Response
+
+```json
+{
+  "id": "92636e70-1815-439b-bf89-8492855a7e6bb",
+  "status": "pending"
+}
+```
+
+### HTTP Request
+
+`GET https://api.joinfinos.com/v1/rollovers/{id}`
 
 # Statements
 
