@@ -2273,6 +2273,10 @@ Parameter | Type | Description
 `description` | string *required* | Description of the rollover.
 `assets` | object *required* | A list of assets to be rolled over.
 
+## Retrieve a rollover
+
+## Update a rollover
+
 # Statements
 
 ## Retrieve a statement
